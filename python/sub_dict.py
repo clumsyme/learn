@@ -9,7 +9,7 @@ class StrDict(dict):
                 return self[str(key)]
             raise KeyError(key)
         except KeyError:
-            print(key, "{} not in!".format(key))
+            print("{} not in!".format(key))
     def __contains__(self, key):
         return key in self.keys() or str(key) in self.keys()
 # >>>sd = StrDict({1:"one", '2':"two"})
@@ -42,4 +42,4 @@ def __missing__(self, key):
             raise KeyError
         return self[str(key)
     except KeyError:
-            print(key, "{} not in!".format(key))
+            print("{} not in!".format(key))
