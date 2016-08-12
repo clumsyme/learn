@@ -41,6 +41,6 @@ def __missing__(self, key):
     try:
         if isinstance(key, str):
             raise KeyError
-        return self[str(key)
+        return self[str(key)]
     except KeyError:
             print("{} not in!".format(key))
