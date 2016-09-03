@@ -6,7 +6,7 @@
 // the event object.So we may think we can get the event object
 // when the event happens.
 // Take the button element as example:
-//     the mouseevent is created when a mouse event is happened, 
+//     the mouseevent is created when a mouse event is happening, 
 //     if we want to simulate a click event, we need to get the 
 //     click event.We can create a event function:
 function getE() {
