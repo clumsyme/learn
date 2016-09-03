@@ -17,7 +17,7 @@ button.addEventListener("click", getE)
 // e will be a global var cause I did't use "var e = event"
 // So after button is clicked, a global e is created.
 // Then use:
-b1.dispatchEvent(e)
+button.dispatchEvent(e)
 // to simulate it.
 
 // To get e in this way, the event must be triggered atleast once.
