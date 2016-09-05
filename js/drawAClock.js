@@ -2,11 +2,15 @@
 
 var canvas = document.getElementById("drawing")
 var context = canvas.getContext("2d")
-var Pi = Math.PI
+var Pi = Math.PI,
     sin = Math.sin,
     cos = Math.cos
 var outerR = 200,
     innerR = 196
+
+// var hLength = 120,
+//     mLength = 160,
+//     sLength = 180
 
 context.translate(250, 250)
 context.strokeStyle = "rgba(0, 0, 255, 0.9)"
