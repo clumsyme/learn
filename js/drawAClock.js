@@ -6,22 +6,26 @@ var Pi = Math.PI,
     sin = Math.sin,
     cos = Math.cos
 var outerR = 200,
-    innerR = 196
+    innerR = 196,
+    speed = 24
 
-// var hLength = 120,
-//     mLength = 160,
-//     sLength = 180
+var hLength = 120,
+    mLength = 160,
+    sLength = 180
 
 context.translate(250, 250)
 context.strokeStyle = "rgba(0, 0, 255, 0.9)"
 context.fillStyle = "rgba(255, 255, 255, 1)"
 context.textAlign = "center"
 context.textBaseline = "middle"
-context.font = "15px serif"
+context.font = "20px serif"
 context.shadowOffsetX = 2
 context.shadowOffsetY = 2
 context.shadowBlur = 5
 context.shadowColor = "rgba(0, 0, 255, 0.5)"
+
+var font = context.font
+var bigFont = "40px times"
 
 function drawClock() {
     context.fillRect(-250, -250, 500, 500)
@@ -58,26 +62,26 @@ function drawClock() {
         if (!(i==0 || i==15 || i===30 || i==45)){
             context.fillText(i/5, (innerR-30)*sin(2*Pi*i/60), -(innerR-30)*cos(2*Pi*i/60))
         }else if(i==0){
-            context.font = "30px serif"
+            context.font = bigFont
             context.fillText(12, (innerR-30)*sin(2*Pi*i/60), -(innerR-30)*cos(2*Pi*i/60), 100)
-            context.font = "15px serif"
+            context.font = font
         }else{
-            context.font = "30px serif"
+            context.font = bigFont
             context.fillText(i/5, (innerR-30)*sin(2*Pi*i/60), -(innerR-30)*cos(2*Pi*i/60), 100)
-            context.font = "15px serif"
+            context.font = font
         }
     }
     context.fillStyle = "rgba(255, 255, 255, 1)"
 
     // 绘制表针
-    context.moveTo(-18*sin(sAngle), 18*cos(sAngle))
-    context.lineTo(180*sin(sAngle), -180*cos(sAngle))
-    context.moveTo(-12*sin(mAngle), 12*cos(mAngle))
-    context.lineTo(160*sin(mAngle), -160*cos(mAngle))
-    context.moveTo(-6*sin(hAngle), 6*cos(hAngle))
-    context.lineTo(120*sin(hAngle), -120*cos(hAngle))
+    context.moveTo(-(sLength/10)*sin(sAngle), (sLength/10)*cos(sAngle))
+    context.lineTo(sLength*sin(sAngle), -sLength*cos(sAngle))
+    context.moveTo(-(mLength/10)*sin(mAngle), (mLength/10)*cos(mAngle))
+    context.lineTo(mLength*sin(mAngle), -mLength*cos(mAngle))
+    context.moveTo(-(hLength/10)*sin(hAngle), (hLength/10)*cos(hAngle))
+    context.lineTo(hLength*sin(hAngle), -hLength*cos(hAngle))
 
     context.stroke()
 }
-setInterval(drawClock, 50)
+setInterval(drawClock, 1000/speed)
 
