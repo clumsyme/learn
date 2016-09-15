@@ -118,7 +118,7 @@ def get_avg():
 # But this one will not work, for for int type, count += 1 equals count = count+1, which makes a assignment and make count/total
 # local variables other than free variables. Why the previous one will work is because we never assign values in avg. That's a 
 # good use of mutable objects.
-The nonlocal declaration will make it work.
+# The nonlocal declaration will make it work.
 ####################################
 def get_avg():
     count = 0
@@ -134,8 +134,13 @@ def get_avg():
 
 
 #-------------------   ps   ----------------------#
-# In fact we can use list/dict names are only references of list/dict objects and functions are objects to make the above work without
-# closure, this take advantage what's disscussed in defaultparameter.py.
+# In fact we can use the fact that list/dict names are only references of list/dict objects and functions are objects to make the 
+# above work without closure, this take advantage what's disscussed in defaultparameter.py.
 def avg(n, values=[]):
-	values.append(n)
-	return sum(values) / (len(values))
+    values.append(n)
+    return sum(values) / (len(values))
+
+def avg(n, dic={"total":0, "count":0}):
+    dic["count"] += 1
+    dic["total"] += n
+    return dic["total"] / dic["count"]  
