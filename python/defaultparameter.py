@@ -180,3 +180,33 @@ def li(var=[1]):
 # After i+=1, var.id and value in init memory:
 # 59061512                                        # so, id Does Not change,  which means the pointer of var still point to init memory.
 # [1, 1]                                          # but value in init memory DID change.
+
+##############################    CALL BY SHARING    ##############################
+"""
+The above content makes confusion that whether python is pass-by-value or pass-by reference?
+If it's pass-by-reference, the following code will make i==2,
+    i=1
+    def f(obj):
+        obj += 1
+    f(i)
+    i--->1
+or if it's pass-by-value, the following code will not change li,
+    li = []
+    def g(obj):
+        li += [1]
+    g(li)
+    li--->[1]
+In pluent python p229 Luciano, the author, says para-pass in python is call by sharing, which means obj is now a sharing reference of i/li now.
+But in python int or str type is unmutable so every modify of this type will create a new object and make the obj the new object'set
+reference. And for mutable objects, obj and li are all reference to the original object, anyone's change will make the pther change.
+
+Well this behaves just like JavaScript while it's said JS is all pass-by-value, the reason why Objects will be changed in function is
+that the value of a Object variable is the object's address, so 
+    var dog = new Dog()
+    function doSome(obj){...}
+    doSome(dog)
+will pass dog's value which is dog object's address and make obj and dog all reference of the object.
+They behave the same, just different names, as long as we know how exactly they work.
+So we may also call JavaScript is call-by-sharing which is said by the answer of "Is JavaScript a pass-by-reference or pass-by-value language?"
+from "http://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language/3638034#3638034".
+"""
