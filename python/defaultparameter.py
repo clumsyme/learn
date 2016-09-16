@@ -197,8 +197,8 @@ or if it's pass-by-value, the following code will not change li,
     g(li)
     li--->[1]
 In pluent python p229 Luciano, the author, says para-pass in python is call by sharing, which means obj is now a sharing reference of i/li now.
-But in python int or str type is unmutable so every modify of this type will create a new object and make the obj the new object'set
-reference. And for mutable objects, obj and li are all reference to the original object, anyone's change will make the pther change.
+But in python int or str type is unmutable so every modify of this type will create a new object and make the obj the new object's
+reference. And for mutable objects, obj and li are all reference to the original object, anyone's change will make the other change.
 
 Well this behaves just like JavaScript while it's said JS is all pass-by-value, the reason why Objects will be changed in function is
 that the value of a Object variable is the object's address, so 
@@ -207,6 +207,15 @@ that the value of a Object variable is the object's address, so
     doSome(dog)
 will pass dog's value which is dog object's address and make obj and dog all reference of the object.
 They behave the same, just different names, as long as we know how exactly they work.
-So we may also call JavaScript is call-by-sharing which is said by the answer of "Is JavaScript a pass-by-reference or pass-by-value language?"
+Seems we may also call JavaScript is call-by-sharing which is said by the answer of "Is JavaScript a pass-by-reference or pass-by-value language?"
 from "http://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language/3638034#3638034".
+But JavaScript is actually pass-by-value, it just behave like call-by-sharing in python.
+i.e
+In python:
+def f(a):pass
+f(b) make b and a ref to the same object but if b is unmutable a+=1 in f will make a ref to another object.
+In JS:
+function f(x){}
+f(y) pass y's value to x, if y is a basic type a new obj equal to y is passed to x, if y is a ref type y's value is object's address and x will also be the obj's ref.
+
 """
