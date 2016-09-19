@@ -119,3 +119,57 @@ def pngenerator():
         else:
             yield i
             i += 1
+"""
+An arithmetic progression. 
+If all we want is implement the __iter__ we can just write it as a generator function.
+"""
+class ArithmeticProgression:
+    def __init__(self, begin, step, end=None):
+        self.begin = begin
+        self.end = end
+        self.step = step
+    def __iter__(self):
+        current = self.begin
+        endless = self.end is None
+        while endless or current < self.end:
+            yield current
+            current += self.step
+
+#----------------------------#
+def aritprog(begin, step, end=None):
+    current = begin
+    endless = end is None
+    while endless or current<end:
+        yield current
+        current += step
+
+"""
+Some builtin generator functions in itertools will be introduced.
+"""
+import itertools
+ge1 = itertools.count(1,2)  # An endless arithmetic progression.
+ge2 = itertools.takewhile(lambda x: x<10, itertool.count(1,2))   # Behave like filter, let it stop.
+ge3 = itertools.compress(range(10), [0,1,1,0,0,0,1,1,1,0])  # return n for n in range(10) if the same index in the list is considered True.
+ge4 = itertools.dropwhile(lambda x:x<5, range(10))  # drop item if x<5, once x>=5, stop dropping and get all remains.
+ge5 = itertools.takewhile(lambda x:x<5, range(10))  # take item if x<5, once x>=5, stop taking and get all taked.
+ge6 = itertools.filterfalse(lambda x:x<5, range(10))    # filter when x<5 False.
+ge7 = itertools.isslice('hello', 0,4,2) # like 'hello'[0:4:2] but is generated one by one.
+
+ge8 = itertools.accumulate([1,2,3,4,5]) # list(ge8)--->[1,3,6,10,15]
+ge9 = itertools.accumulate([5,2,3,8,1], max)    # list(ge9)--->[5,5,5,8,8]
+ge10 = itertools.chain(range(10), range(10,20))  # range(20)
+ge11 = itertools.combinations("ABC", 2) # combinations.
+ge12 = itertools.permutations("ABC", 2) # permutations.
+ge13 = itertools.groupby(['duck', 'eagle', 'rat', 'giraffe', 'bear','bat', 'dolphin', 'shark', 'lion'], len)    # yield a tuple with n generators generate objects based on len.
+
+"""
+And the 'yield from' sytanx.
+"""
+def yf(its):
+    for it in its:
+        for item in it:
+            yield item
+#---------------------#
+def yfrom(its):
+    for it in its:
+        yield from it
