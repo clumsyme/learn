@@ -19,7 +19,7 @@ def averager():
         total += new
         count += 1
         average = total/count
-        print("Average now is: ", end = '')
+        print("Average now is: ", average)
 
 # We can even return value from coroutine just by making it reaching the return.
 # Get the return value by:
@@ -28,16 +28,16 @@ def averager():
 #       except Exception as e:
 #           result = e.value 
 def averager2():
-	total = 0
-	count = 0
-	ave = None
-	nums = []
-	while True:
-		new = yield
-		if new == None:
-			break
-		total += new
-		count += 1
-		ave = total/count
-		nums.append(new)
-	return (nums, ave)
+    total = 0
+    count = 0
+    ave = None
+    nums = []
+    while True:
+        new = yield
+        if new == None:
+            break
+        total += new
+        count += 1
+        ave = total/count
+        nums.append(new)
+    return (nums, ave)
