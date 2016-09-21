@@ -27,6 +27,8 @@ for (var i=0, len=feeds.length; i<len; i++){
     nextButton.innerHTML = "next"
     makeItWork()
     // The previous one wont't work cause it's eventhandler function bound to "NextFeed" which will always be the next of last feed
+    // at the end of the for loop. Or if we scrollToElement(feed[i+1]) if this function it won't work cause "i" will have a global value.
+    // By this way, after every makeItWork() call the nextFeed should be gone but with a reference to event-h function which has a reference 
     // to nextFeed exists, nextFeed target the right feed is bound to the right button.
     feeds[i].appendChild(nextButton)
 }
