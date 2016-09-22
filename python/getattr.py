@@ -108,3 +108,105 @@ class Item3:
     def __init__(self, weight, price):
         self.weight = weight
         self.price = price
+
+"""
+The Items behave like the descriptor. Which is a class with __get__ or __set__ implemented.
+Item3.weight is a descriptor instance. Which means
+
+    weight = Quantity("weight")
+
+is just like
+
+    weight = makeproperty("weight")
+
+which is just like
+
+    @property
+    def weight():...
+    @weight.setter
+    def weight(...):...
+
+"""
+class Quantity:
+    def __init__(self, name):
+        self.name = name
+    def __set__(self, instance, value):
+        """
+        put value in instance's __dict__ instead using the setattr() to avoid a infinite recursion.
+        """
+        if value > 0:
+            instance.__dict__[self.name] = value
+        else:
+            raise ValueError('value must be > 0')
+
+class Item4:
+    weight = Quantity('weight')
+    price = Quantity('price')
+    def __init__(self, weight, price):
+        """
+        Here with the weight implemented as the class attribute, the 'self.weight = weight' will use Item4.weight's __set__ method.
+        Just like this snippet will execute name_setter in makeproperty(weight).
+
+        'self.weight = weight' equals to 'Item4.weight.__set__(self, weight)'
+        first weight is the descriptor instance, second weight is the argument weight.
+        """
+        self.weight = weight    # inside it: Item4.weight.__set__(self, weight)
+        self.price = price
+
+#------    avoid pass argument to Quantity    ---------#
+class Quantity2:
+    """
+    As weight/price are descriptor instance as Item's attribute, and Item's instance no need to know how the attribute is stored, 
+    there's no need that attribute 'weight' stored in item.__dict__ named 'weight', the following is a implemention.
+    """
+    __counter = 0
+    def __init__(self):
+        cls = self.__class__
+        prefix = cls.__name__
+        index = cls.__counter
+        self.storage_name = '_{}#{}'.format(prefix, index)
+        cls.__counter += 1
+    def __get__(self, instance, owner):
+        """
+        __get__ need be implemented cause item.weight will come to getattr(item, 'weight') while the real name is 'Quantity#0'.
+        And here we can use getattr() and setattr() cause we don't get instance's weight and no descriptor will be invloved.
+        """
+        return getattr(instance, self.storage_name)
+    def __set__(self, instance, value):
+        if value > 0:
+            setattr(instance, self.storage_name, value)
+        else:
+            raise ValueError('value must be > 0')
+
+        
+class Item5:
+    weight = Quantity2()
+    price = Quantity2()
+    def __init__(self, weight, price):
+        self.weight = weight
+        self.price = price
+# Another way to define a descriptor class which can both handle weight/price numbers and name string is defined in
+# Fluent Python p.640 using abc inheritence.
+"""
+Compare property and descriptor:
+    descriptor:
+        with __get__
+            item.name will search item.__dict__ firstly and then call __get__
+            item.name = value will shadow __get__ and modify item.__dict__
+        with __set__
+            item.name will search item.__dict__ firstly, then it's the class attribute descriptor instance
+            item.name = value will call __set__ with no modify item.__dict__
+        with __get__ & __set__       <---(*overriding descriptor)
+            item.name will always call __get__ firstly, then item.__dict__
+            item.name = value will call __set__
+    
+    property:
+        item.name will always search @property firstly, then item.__dict__
+        *In fact, @property is a descriptor which implements both __get__ and __set__ even we don't define __set__ by hand.
+        *That's why item.name will always search @property firstly: set will be forbiden by raise error or use __set__, 
+
+ps:
+methods are descriptors with __get__ but no __set__, so item.method is a bound method and Item.method is a function.
+A bound method means it will bind item as it's first argument.
+And 'item.method = value' will shadow the bound method just as the "with __get__" descriptor above behave. ***No influence special method.
+"""
