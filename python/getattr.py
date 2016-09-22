@@ -156,7 +156,7 @@ class Item4:
 #------    avoid pass argument to Quantity    ---------#
 class Quantity2:
     """
-    As weight/price are descriptor instance as Item's attribute, and Item's instance no need to know how the attribute is stored, 
+    As weight/price are descriptor instance as Item's attribute, and Item's instance has no need to know how the attribute is stored, 
     there's no need that attribute 'weight' stored in item.__dict__ named 'weight', the following is a implemention.
     """
     __counter = 0
@@ -188,7 +188,7 @@ class Item5:
 # Another way to define a descriptor class which can both handle weight/price numbers and name string is defined in
 # Fluent Python p.640 using abc inheritence.
 """
-Compare property and descriptor:
+Compare property with descriptor:
     descriptor:
         with __get__
             item.name will search item.__dict__ firstly and then call __get__
