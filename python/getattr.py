@@ -149,7 +149,7 @@ class Item4:
 
         'self.weight = weight' equals to 'Item4.weight.__set__(self, weight)'
         first weight is the descriptor instance, second weight is the argument weight.
-        ***No behave this if weight implements __get__ for that Item4.weight call weight's __get__ instead of get Quanlity object..
+        ***It won't behave like this if weight implements __get__ for that Item4.weight will call weight's __get__ instead of get Quanlity object.
 
         """
         self.weight = weight    # inside it: Item4.weight.__set__(self, weight) just cause no __get__ implemented in Quantity('weight').
