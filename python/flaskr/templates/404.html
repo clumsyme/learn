@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>Oh, thw thing you want is not here</h2>
+<p>Check somewhere else?</p>
+<a href="{{  url_for('show_entries') }}">OK</a>
+<br>
+<canvas width=500 height=500 id="drawing"></canvas>
+<script src = "{{ url_for('static', filename='clock.js') }}"></script>
+{% endblock %}
+
+{% block title %}You got the wrong place{% endblock %}
