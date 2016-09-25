@@ -89,14 +89,9 @@ def logout():
 
 @app.route('/article/<title>')
 def show_article(title):
-    print(title)
     db = get_db()
-    articledb = db.execute("select title, text from entries")
-    articles = articledb.fetchall()
-    for articleA in articles:
-        if articleA[0] == title:
-            article = articleA
-            break
+    articledb = db.execute("select title, text from entries WHERE title=?", [title])
+    article = articledb.fetchall()[0]
     return render_template('article.html', article=article)
 
 @app.route('/no/where')
