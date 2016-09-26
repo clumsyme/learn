@@ -19,4 +19,32 @@
   {% endfor %}
   </ul>
 {% endblock %}
+
 {% block title %}Main page{% endblock %}
+
+{% block side %}
+<div class="side">
+<div class="intro">
+  <h1>ABOUT ME</h1>
+  <p>我就是我<br>是颜色不一样的烟火</p>
+</div>
+<br>
+<div class="recentarticle">
+  <h1>RECENTLY POSTED</h1>
+  <ul class="recentarticle">
+    {% for entry in entries[:5] %}
+     <li>
+      <h2><a href="{{ url_for('show_article', title=entry.title) }}">{{ entry.title }}</a></h2>
+     </li>
+    {% endfor %}
+  </ul>
+</div>
+<br>
+<div class="social">
+  <h1>I'M HERE</h1>
+  <a href="https://www.instagram.com"><img class="social" src="{{ url_for('static', filename='instagram.png') }}"></a>
+  <a href="https://twitter.com"><img class="social" src="{{ url_for('static', filename='twitter.png') }}"></a>
+  <a href="http://weibo.com"><img class="social" src="{{ url_for('static', filename='weibo.png') }}"></a>
+</div>
+</div>
+{% endblock %}
