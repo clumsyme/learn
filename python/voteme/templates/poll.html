@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('update_poll',title=poll.title) }}" method=post>
+<h2>{{ poll.title }}</h2>
+<input type="checkbox" name="option1">{{ poll.option1 }}
+<br/>
+<input type="checkbox" name="option2">{{ poll.option2 }}
+<br/>
+<input type="checkbox" name="option3">{{ poll.option3 }}
+<br/>
+<input type="submit" value="Go">
+</form>
+{% endblock %}
+
+{% block title %}
+{{ poll.title }}
+{% endblock %}

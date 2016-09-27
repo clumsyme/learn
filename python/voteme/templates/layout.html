@@ -1,0 +1,29 @@
+<!doctype html>
+<head>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
+  <title>{% block title %}{% endblock %}</title>
+  <!--<script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>-->
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+  <script src = "{{ url_for('static', filename='jquery-user.js') }}"></script>
+</head>
+<body>
+  <div class=page>
+    <h1><a href="{{  url_for('index') }}">VOTEME</a></h1>
+      {% for message in get_flashed_messages() %}
+      <div class=flash>{{ message }}</div>
+      {% endfor %}
+
+      {% block body %}{% endblock %}
+
+      <br><br>
+
+      {% block footer %}
+      <div class="footer">life is beautiful @<a class="yan" href="http://imliyan.com">yan</a></div>
+      {% endblock %}
+    </div>
+    
+    {% block side %}{% endblock %}
+
+    {% block script %}{% endblock %}
+</body>

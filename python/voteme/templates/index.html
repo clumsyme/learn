@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!--{% if session.logged_in %}-->
+    <form action="{{ url_for('add_poll') }}" method=post class=add-poll>
+      <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title>
+        <dt>Option1:
+        <dd><input type=text size=30 name=option1>
+        <dt>Option2:
+        <dd><input type=text size=30 name=option2>
+        <dt>Option3:
+        <dd><input type=text size=30 name=option3>
+        <dd><input type=submit value=Share>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=polls>
+  {% for poll in polls %}
+    <li>
+      <h2><a href="{{ url_for('show_poll', title=poll.title) }}">{{ poll.title }}<small><a href="{{ url_for('show_result', title=poll.title) }}">result</a></small></a></h2>
+      
+      <!--<p>{{ poll.text|safe }}</p>-->
+    </li>
+  {% else %}
+    <li><em>Unbelievable.  No polls here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block title %}
+Main page
+{% endblock %}
+

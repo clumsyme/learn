@@ -1,0 +1,31 @@
+body            { font-family: sans-serif; background: #eee; font-size: 1em}
+a, h1, h2       { color: #377ba8; }
+a:hover         { color: coral}
+a.yan           { color: red }
+/*p:hover         { font-weight: 700}*/
+/*a:visited      { color:greenyellow }*/
+h1, h2,p         { font-family: 'Times New Roman', 'YouYuan', serif; margin: 0; }
+h1, li              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1em; }
+small           { text-align: center; display: block}
+img.social      { width:50px; height:50px;margin: 10px}
+img.social:not(:hover)  { transform: rotate(0deg); transition: transform 1s;}
+img.social:hover{ transform: rotate(360deg); transition: transform 1s;}
+img#photo        { width:100px; height:100px; display:block; margin:auto;resize: both }
+.page           { margin: 3% auto; width:58%; border: 0px solid #ccc;
+                  padding: 4.5%; background: white; position: absolute; left: 10%; visibility: display}
+.sider           { margin: 3% auto;  border: 0px solid #ccc; width: 25%;  font-size: 0.7em;
+                  padding: 4.5%; background: white; position: absolute; left: 70%;}         
+.entries        { list-style: none; margin: 0; padding: 0; }
+.entries li     { margin: 0.8em 1.2em; }
+.entries li h2  { margin-left: -1em; }
+.add-entry      { font-size: 0.9em; border-bottom: 1px solid #ccc; }
+.add-entry dl   { font-weight: bold; }
+.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
+.flash          { background: #cee5F5; padding: 0.5em;
+                  border: 1px solid #aacbe2; }
+.error          { background: #f0d6d6; padding: 0.5em; }
+a               {text-decoration:none;}
+canvas          {width:50%; height: 50%; position: relative; left: 50%}
+.footer         {font-size: 0.6em; border-top: 1px solid #ccc;  font-family: "Helvetica Neue"; text-align: center; color: #377ba8}

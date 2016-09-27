@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>{{ poll.title }}</h2>
+<li>{{ poll.option1 }}{{ poll.num1 }}</li>
+<br/>
+<li>{{ poll.option2 }}{{ poll.num2 }}</li>
+<br/>
+<li>{{ poll.option3 }}{{ poll.num3 }}</li>
+{% endblock %}
+
+{% block title %}
+{{ poll.title }}
+{% endblock %}
