@@ -7,8 +7,9 @@ canvas          {width:50%; height: 50%; position: relative; left: 50%}
 h1, h2          { font-family: 'Georgia', 'YouYuan', serif; margin: 0; }
 h1, li          { border-bottom: 2px solid #eee; }
 h2              { font-size: 1.2em; }
-img.social      {width:50px; height:50px;margin: 10px}
-img.social:hover{background: #eee}
+img.social      { width:50px; height:50px;margin: 10px}
+img.social:not(:hover)  { transform: rotate(0deg); transition: transform 1s;}
+img.social:hover{ transform: rotate(360deg); transition: transform 1s;}
 .page           { margin: 3% auto; width:50%; border: 5px solid #ccc;
                   padding: 4.5%; background: white; position: absolute; left: 10%; visibility: display}
 .side           { margin: 3% auto;  border: 5px solid #ccc; width: 15%; height:70%; font-size: 0.7em;
