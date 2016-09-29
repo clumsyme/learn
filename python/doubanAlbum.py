@@ -21,7 +21,7 @@ def downloadAlbum(albumUrl):
     albumName = soup.find('div', class_='info').h1.string.split('-')[-1]
     nextpage = soup.find('span', class_='next')
     thumbs = soup.find_all('a', class_='photolst_photo')
-    imgUrls = [a.img['src'].replace('thumb','photo')
+    imgUrls = [a.img['src'].replace('thumb', 'large')
                 for a in thumbs]
     with goto(albumName):
         for img in imgUrls:
