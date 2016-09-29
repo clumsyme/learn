@@ -49,11 +49,8 @@ def downloadAllAlbums(albumsUrl):
         downloadAllAlbums(nextpage.a['href'])
 
 if __name__ == "__main__":
-    single = input("Single(S/s) or Multi(M/m): ")
-    while single not in ['S', 's', 'M', 'm']:
-        single = input("Single(S/s) or Multi(M/m)")
     url = input("Url: ")
-    if single in ['S', 's']:
-        downloadAlbum(url)
-    else:
+    if 'people' in url:
         downloadAllAlbums(url)
+    else:
+        downloadAlbum(url)
