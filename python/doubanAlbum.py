@@ -45,8 +45,8 @@ def downloadAllAlbums(albumsUrl):
     with goto(people):
         for albumUrl in albumUrls:
             downloadAlbum(albumUrl)
-        if nextpage.a:
-            downloadAllAlbums(nextpage.a['href'])
+    if nextpage.a:
+        downloadAllAlbums(nextpage.a['href'])
 
 if __name__ == "__main__":
     single = input("Single(S/s) or Multi(M/m): ")
