@@ -29,7 +29,7 @@ def downloadAlbum(albumUrl):
             with open(imgName, 'wb') as imgdate:
                 imgdate.write(get(img).content)
                 time.sleep(INTERVAL)
-    if nextpage.a:
+    if nextpage and nextpage.a:
         downloadAlbum(nextpage.a['href'])
 
 def downloadAllAlbums(albumsUrl):
@@ -45,7 +45,7 @@ def downloadAllAlbums(albumsUrl):
     with goto(people):
         for albumUrl in albumUrls:
             downloadAlbum(albumUrl)
-    if nextpage.a:
+    if nextpage and nextpage.a:
         downloadAllAlbums(nextpage.a['href'])
 
 if __name__ == "__main__":
