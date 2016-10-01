@@ -75,6 +75,26 @@ def downloadCelebrity(celebrityUrl):
     if nextpage and nextpage.a:
         downloadCelebrity(nextpage.a['href'])
 
+def downloadMovie(movieUrl):
+    """Download a movie's photos.
+        downloadMovie('https://movie.douban.com/subject/1234567/') 
+    """
+    moviePhotos = get(movieUrl)
+    soup = bs(moviePhotos.text, "html.parser")
+    title = soup.title.string.split(' ')[4]
+    nextpage = soup.find('span', class_='next')
+    print(nextpage, nextpage.a)
+    photodivs = soup.find_all('div', class_='cover')
+    photos = [(div.a['href'], div.a.img['src']) for div in photodivs]
+    with goto(title):
+        for photo in photos:
+            photoName = photo[1].split('/')[-1]
+            with open(photoName, 'wb') as photodata:
+                rawphoto = photo[1].replace('thumb', 'raw')
+                photodata.write(get(rawphoto, headers={'referer':photo[0]}).content)
+    if nextpage and nextpage.a:
+        downloadMovie(nextpage.a['href'])
+
 def login(email, password):
     """
     Login to douban.com with email&password, redirect to profile in default.
@@ -115,6 +135,8 @@ if __name__ == "__main__":
         downloadAllAlbums(url)
     elif 'celebrity' in url:
         downloadCelebrity(url)
+    elif 'subject' in url:
+        downloadMovie(url)
     else:
         downloadAlbum(url)
 
@@ -133,4 +155,12 @@ def download(albumID):
             name = src.split('/')[-1]
             with open(name, 'wb') as file:
                 file.write(get(src).content)
+
+While four functions are defined for downloading so far, and they basicly perform similar steps:
+    1. get the page and soup it.
+    2. find the title/name, nextpage, photoUrls
+    3. go to the directories and download photos
+So we may integrate them as one function. However, there's still some dintinctions betwwen them, 
+lots of conditionals may be included if we integrate them, so the code lines may not decrease much 
+but the single function may became much heavy and hard to read.
 """
