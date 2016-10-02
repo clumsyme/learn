@@ -2,3 +2,4 @@
 Text
 *.class
 *.db
+*pycache*
