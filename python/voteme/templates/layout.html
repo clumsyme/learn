@@ -4,12 +4,36 @@
   <title>{% block title %}{% endblock %}</title>
   <!--<script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>-->
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='semantic.min.css') }}">
 
-  <script src = "{{ url_for('static', filename='jquery-user.js') }}"></script>
+  <script src = "{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+  <script src = "{{ url_for('static', filename='semantic.min.js') }}"></script>
 </head>
 <body>
   <div class=page>
-    <h1><a href="{{  url_for('index') }}">VOTEME</a></h1>
+    <!--<h1><a href="{{  url_for('index') }}">VOTEME</a></h1>-->
+
+    <div class="ui secondary  menu">
+      <a class="active item" href="{{  url_for('index') }}">Home </a>
+      <a class="item" href="mailto:liyancsu@gmail.com">Mail Me </a>
+      <a class="item" href="">About</a>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+        <div class=metanav>
+          {% if not session.logged_in %}
+            <a class="ui item"href="{{ url_for('login') }}">log in</a>
+          {% else %}
+            <a class="ui item" href="{{ url_for('logout') }}">log out</a>
+          {% endif %}
+    </div>
+      </div>
+    </div>
+    
       {% for message in get_flashed_messages() %}
       <div class=flash>{{ message }}</div>
       {% endfor %}

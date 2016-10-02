@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h2>{{ poll.title }}</h2>
-<li>{{ poll.option1 }}{{ poll.num1 }}</li>
-<br/>
-<li>{{ poll.option2 }}{{ poll.num2 }}</li>
-<br/>
-<li>{{ poll.option3 }}{{ poll.num3 }}</li>
+<a href="{{ url_for('show_poll', title=poll.title) }}"><h2>{{ poll.title }}</h2></a>
+<div class="ui list">
+  <div class="item">{{ poll.option1 }}{{ poll.num1 }}</div>
+  <div class="item">{{ poll.option2 }}{{ poll.num2 }}</div>
+  <div class="item">{{ poll.option3 }}{{ poll.num3 }}</div>
+</div>
 {% endblock %}
 
 {% block title %}

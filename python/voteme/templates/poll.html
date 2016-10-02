@@ -1,7 +1,37 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form action="{{ url_for('update_poll',title=poll.title) }}" method=post>
+    <form class="ui form" action="{{ url_for('update_poll',title=poll.title) }}" method=post>
+      <h2>{{ poll.title }}</h2>
+      <div class="field">
+        <label>Option One</label>
+        <div class="ui checkbox">
+            <input type="checkbox" name="option1" tabindex="0">
+            <label>{{ poll.option1 }}</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Option One</label>
+        <div class="ui checkbox">
+            <input type="checkbox" name="option2" tabindex="0">
+            <label>{{ poll.option2 }}</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Option One</label>
+        <div class="ui checkbox">
+            <input type="checkbox" name="option3" tabindex="0">
+            <label>{{ poll.option3 }}</label>
+        </div>
+      </div>
+      
+      <button class="ui button" type="submit">Vote</button>
+  </form>
+
+
+
+
+<!--<form action="{{ url_for('update_poll',title=poll.title) }}" method=post>
 <h2>{{ poll.title }}</h2>
 <input type="checkbox" name="option1">{{ poll.option1 }}
 <br/>
@@ -10,7 +40,7 @@
 <input type="checkbox" name="option3">{{ poll.option3 }}
 <br/>
 <input type="submit" value="Go">
-</form>
+</form>-->
 {% endblock %}
 
 {% block title %}

@@ -59,7 +59,7 @@ def index():
 @app.route('/add',methods=['POST'])
 def add_poll():
     db = get_db()
-    db.execute('insert into polls (title, option1, option2, option3) values (?, ?, ?, ?)',
+    db.execute('insert into polls (title, option1, option2, option3, num1, num2, num3) values (?, ?, ?, ?, 0, 0, 0)',
                  [request.form['title'], request.form['option1'], request.form['option2'], request.form['option3']])
     db.commit()
     flash('New poll was successfully posted')
@@ -75,18 +75,55 @@ def show_poll(title):
 @app.route('/update/<title>',methods=['POST'])
 def update_poll(title):
     db = get_db()
-    db.execute('update polls set num1=num1+1 where title=?',[title])
+    for option in request.form:
+        if option=="option1":
+            db.execute('update polls set num1=num1+1 where title=?',[title])
+        elif option=="option2":
+            db.execute('update polls set num2=num2+1 where title=?',[title])
+        elif option=="option3":
+            db.execute('update polls set num3=num3+1 where title=?',[title])
+
+
+    # options = [request.form['option1'], request.form['option2'], request.form['option3']]
+    # for num in range(1,4):
+    #     if options[num-1] == "on":
+    #         if num==1:
+    #             db.execute('update polls set num1=num1+1 where title=?',[title])
+    #         elif num==2:
+    #             db.execute('update polls set num2=num2+1 where title=?',[title])
+    #         else:
+    #             db.execute('update polls set num3=num3+1 where title=?',[title])
     db.commit()
     flash('New poll was successfully posted')
-    return redirect(url_for('index'))
+    return redirect(url_for('show_result', title=title))
 
-@app.route('/poll/result/<title>')
+@app.route('/poll/<title>/result/')
 def show_result(title):
     db = get_db()
     polldb = db.execute("select * from polls WHERE title=?", [title])
     poll = polldb.fetchall()[0]
     return render_template('result.html', poll=poll)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != app.config['USERNAME']:
+            error = 'Invalid username'
+        elif request.form['password'] != app.config['PASSWORD']:
+            error = 'Invalid password'
+        else:
+            session['logged_in'] = True
+            flash('You were logged in')
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run()

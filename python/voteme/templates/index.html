@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-  <!--{% if session.logged_in %}-->
-    <form action="{{ url_for('add_poll') }}" method=post class=add-poll>
+    <!--<form action="{{ url_for('add_poll') }}" method=post class=add-poll>
       <dl>
         <dt>Title:
         <dd><input type=text size=30 name=title>
@@ -13,19 +12,54 @@
         <dd><input type=text size=30 name=option3>
         <dd><input type=submit value=Share>
       </dl>
-    </form>
-  {% endif %}
-  <ul class=polls>
-  {% for poll in polls %}
-    <li>
-      <h2><a href="{{ url_for('show_poll', title=poll.title) }}">{{ poll.title }}<small><a href="{{ url_for('show_result', title=poll.title) }}">result</a></small></a></h2>
-      
-      <!--<p>{{ poll.text|safe }}</p>-->
-    </li>
-  {% else %}
+    </form>-->
+{% if session.logged_in %}
+    <form class="ui form" action="{{ url_for('add_poll') }}" method=post class=add-poll>
+      <div class="field">
+        <label>Title</label>
+        <input type="text" name="title" placeholder="Poll Title">
+      </div>
+      <div class="field">
+        <label>Option One</label>
+        <input type="text" name="option1" placeholder="Option One">
+      </div>
+      <div class="field">
+        <label>Option One</label>
+        <input type="text" name="option2" placeholder="Option Two">
+      </div>
+      <div class="field">
+        <label>Option One</label>
+        <input type="text" name="option3" placeholder="Option Three">
+      </div>
+      <button class="ui button" type="submit">Create</button>
+  </form>
+{% endif %}
+<div class=polls>
+    <div class="ui cards">
+        {% for poll in polls %}
+        <div class="card">
+          <div class="ui bottom attached button">
+            <i class="add icon"></i>
+            <a href="{{ url_for('show_poll', title=poll.title) }}">{{ poll.title }}</a>
+          </div>
+          <div class="content">
+            <div class="header">Option One</div>
+            <div class="description">{{ poll.option1 }}</div>
+          </div>
+          <div class="content">
+            <div class="header">Option Two</div>
+            <div class="description">{{ poll.option2 }}</div>
+          </div>
+          <div class="content">
+            <div class="header">Option Three</div>
+            <div class="description">{{ poll.option3 }}</div>
+          </div>
+        </div>
+      {% else %}
+    </div>
     <li><em>Unbelievable.  No polls here so far</em>
   {% endfor %}
-  </ul>
+</div>
 {% endblock %}
 
 {% block title %}
