@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>MouseMove</title>
+    </head>
+    <body>
+        <div class="pictureScreeen" style="position:absolute; width:1000px; height:768px; overflow:hidden">
+            <div class="city" id="city" style="position: absolute; left:-100px;">
+                <img src="city.png">
+            </div>
+            <div class="car" id="car" style="position: absolute; left:-100px">
+                <img src="car.png">
+            </div>
+        </div>
+        <script type="">
+            var city = document.getElementById('city')
+            var car = document.getElementById('car')
+            
+            document.body.onmousemove = function(event){
+            var mouseX = event.screenX
+            var screenMiddleX = window.screen.width / 2
+            var cityOffset = -100 + (screenMiddleX-mouseX)*100/screenMiddleX
+            var carOffset = -100 - (screenMiddleX-mouseX)*200/screenMiddleX
+            city.style.left = cityOffset
+            car.style.left = carOffset
+            }
+        </script>
+    </body>
+</html>
