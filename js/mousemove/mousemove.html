@@ -1,6 +1,12 @@
 <html>
     <head>
         <title>MouseMove</title>
+        <style type="text/css">
+            div.smile{
+                z-index: 90;
+                transform-style: preserve-3d;
+            }
+        </style>
     </head>
     <body>
         <div class="pictureScreeen" style="position:absolute; width:1000px; height:768px; overflow:hidden">
@@ -11,17 +17,33 @@
                 <img src="car.png">
             </div>
         </div>
+        <div class="smile" id="smile" style="position:absolute; width:400px; height:400px;">
+            <div class="face" id="face" style="position:absolute; transform: translateZ(10px);">
+                <img src="face.png">
+            </div>
+            <div class="eyes" id="eyes" style="position:absolute; transform: translateZ(80px);">
+                <img src="eyes.png">
+            </div>
+        </div>
         <script type="">
             var city = document.getElementById('city')
             var car = document.getElementById('car')
-            
+            var smile = document.getElementById('smile')
+
             document.body.onmousemove = function(event){
             var mouseX = event.screenX
+            var mouseY = event.screenY
             var screenMiddleX = window.screen.width / 2
+            var screenMiddleY = window.screen.height / 2
+
             var cityOffset = -100 + (screenMiddleX-mouseX)*100/screenMiddleX
-            var carOffset = -100 - (screenMiddleX-mouseX)*200/screenMiddleX
+            var carOffset = -100 - (screenMiddleX-mouseX)*500/screenMiddleX
             city.style.left = cityOffset
             car.style.left = carOffset
+
+            rotateY = 25*(mouseX-screenMiddleX)/screenMiddleX
+            rotateX = 10*(screenMiddleY-mouseY)/screenMiddleY
+            smile.style.cssText = 'transform: rotateX(' + rotateX + 'deg) rotateY('  + rotateY + 'deg)'
             }
         </script>
     </body>
