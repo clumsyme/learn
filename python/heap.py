@@ -1,8 +1,9 @@
 class Heap:
-    def __init__(self, *values):
+    def __init__(self, values=None):
         self.nodes = [0]
-        for value in values:
-            self.insert(value)
+        if values != None:
+            for value in values:
+                self.insert(value)
     @property
     def size(self):
         return len(self.nodes)-1
@@ -39,9 +40,7 @@ h.deleteMin()
 print('-'*50, h.nodes, sep='\n')
 
 unordered = [random.randint(1,1000) for _ in range(20)]
-heap = Heap()
-for num in unordered:
-    heap.insert(num)
+heap = Heap(unordered)
 ordered = [heap.deleteMin() for _ in range(heap.size)]
 print('unordered: ', unordered)
 print('ordered: ', ordered)
@@ -79,10 +78,11 @@ unordered is changed into a heap in-place.
 
 class HeapMax:
     """Another heap for looking for max value."""
-    def __init__(self, *values):
+    def __init__(self, values):
         self.nodes = [10**20]
-        for value in values:
-            self.insert(value)
+        if values != None:
+            for value in values:
+                self.insert(value)
     @property
     def size(self):
         return len(self.nodes)-1
