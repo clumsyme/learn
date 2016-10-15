@@ -1,5 +1,7 @@
 import json
 import re
+import time
+import random
 import requests
 from bs4 import BeautifulSoup as bs
 
@@ -32,6 +34,7 @@ def getTagMovies(tagUrl):
             rated = item.find('span', class_='pl').string
             movie = {'名称': name, '评分': rating, '人数': rated}
             movies.append(movie)
+        time.sleep(random.random())
         if nextpage and nextpage.a:
             getMovies(nextpage.a['href'])
     getMovies(tagUrl)
