@@ -35,10 +35,14 @@ def getTagMovies(tagUrl):
             rating = item.find('span', class_='rating_nums')
             if rating:
                 rating = float(rating.string)
+            else:
+                rating = 0.0
             rated = item.find('span', class_='pl')
             rated = re.findall(pattern2, rated.string)
-            if rated:
+            if rated and rated[0] != '目前无':
                 rated = int(rated[0])
+            else:
+                rated = 0
             movie = {'名称': name, '评分': rating, '人数': rated}
             movies.append(movie)
         time.sleep(random.random())
