@@ -1,6 +1,13 @@
+class Min:
+    def __lt__(self, other):
+        return True
+    def __gt__(self, other):
+        return False
+    def __repr__(self):
+        return '-'
 class Heap:
     def __init__(self, values=None):
-        self.nodes = [0]
+        self.nodes = [Min()]
         if values != None:
             for value in values:
                 self.insert(value)
