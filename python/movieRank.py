@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 pattern = re.compile(r'tag\/(.*?)\?type')
+pattern2 = re.compile(r'\((.*?)人评价\)')
 get = requests.get
 
 rootUrl = 'https://movie.douban.com/tag/'
@@ -30,8 +31,14 @@ def getTagMovies(tagUrl):
         for item in items:
             name = list(item.find('a', class_='').children)[0]
             name = name.replace('\n', '').replace(' ', '')
-            rating = item.find('span', class_='rating_nums').string
-            rated = item.find('span', class_='pl').string
+            name = name[:-1]
+            rating = item.find('span', class_='rating_nums')
+            if rating:
+                rating = float(rating.string)
+            rated = item.find('span', class_='pl')
+            rated = re.findall(pattern2, rated.string)
+            if rated:
+                rated = int(rated[0])
             movie = {'名称': name, '评分': rating, '人数': rated}
             movies.append(movie)
         time.sleep(random.random())
