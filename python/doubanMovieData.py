@@ -1,10 +1,10 @@
 import json
-import MySql.connector
+import mysql.connector
 
 with open('doubanMovies.json', 'r', encoding='utf8') as dbms:
     dic = json.load(dbms)
 
-db = MySql.connector.connect(user='****', password='*******',database='****')
+db = mysql.connector.connect(user='****', password='*******',database='****')
 cursor = db.cursor()
 cursor.execute("""create table doubanmovie
                    (id int auto_increment,
@@ -24,3 +24,4 @@ for tag in dic.keys():
             cursor.execute(addMovie, (movie["名称"], movie["评分"], movie["人数"], tag))
         except TypeError:
             cursor.execute(addMovie, (movie["名称"], movie["评分"], 0, tag))
+db.commit()
