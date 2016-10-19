@@ -137,4 +137,43 @@ for i in range(0, 101, 5):
 90  84.164
 95  96.995
 100 100.0
+
+##########################################
+# result: key is winrate, value[i] is the probability of get just i wins.
+result = {winrate:[] for winrate in range(0,101,5)}
+for winrate in range(0, 101, 5):
+	for wins in range(13):
+		result[winrate].append(probn(wins, winrate/100))
+
+# prize[i] is the prize with i wins.
+prize = [100, 200, 300, 640, 880, 1040, 1200, 1360, 1520, 2400, 4000, 5760, 12000]
+
+# prizeresult[i] is the prize expectation with winrate i*5
+prizeresult = []
+for winrate in range(0,101,5):
+	prizeresult.append(sum(a*b for a,b in zip(result[winrate], prize)))
+for i in range(21):
+	print('{:<3} {:<5}'.format(i*5, round(presult[i], 3)))
+0   100.0
+5   116.08
+10  135.578
+15  160.245
+20  191.678
+25  231.432
+30  281.369
+35  344.53
+40  426.983
+45  541.172
+50  711.035
+55  978.369
+60  1408.251
+65  2088.936
+70  3118.923
+75  4572.568
+80  6438.85
+85  8541.6
+90  10482.898
+95  11718.92
+100 12000.0
+
 """
