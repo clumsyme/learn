@@ -1,3 +1,7 @@
+"""
+The 24 game. It's not working well cause thereare repeating result and
+not every condition is considered.
+"""
 from itertools import permutations, product
 
 def tf(*nums):
@@ -36,4 +40,12 @@ def tf(*nums):
     for result in results:
         print(result)
 
-tf(2,4,6,8)
+tf(1,7,2,8)
+"""
+(1+7)+2*8
+1+7+(2*8)
+1+(7+2*8)
+(1+7)+(2*8)
+1+7+2*8
+(1+7)*2+8
+"""
