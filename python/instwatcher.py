@@ -9,6 +9,7 @@ KNOWN ISSUES: Not every content has caption.
 
 import re
 import time
+import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -17,8 +18,9 @@ from email.header import Header
 import requests
 from bs4 import BeautifulSoup as bs
 
-INTERVAL = 600
+logging.basicConfig(filename='inslogging.log', format='%(asctime)s---%(message)s \n', level=logging.INFO)
 
+INTERVAL = 600
 smtpserver = 'smtp.qq.com'
 username = '***@qq.com'
 password = '***'
@@ -53,7 +55,8 @@ def sendmail(cap, imgcontent):
     time.sleep(5)
     sm.quit()
 
-while True:
+def main():
+    global lastimg
     userpage = requests.get(userurl, 'html.parser').text
     captions = re.findall(pattern1, userpage)
     imgs = re.findall(pattern2, userpage)
@@ -65,5 +68,14 @@ while True:
         else:
             cap = (captions[i]+'.jpg').replace(' ', '.')
             imgcontent = requests.get(imgs[i]).content
-            sendmail(cap, imgcontent)
+            #sendmail(cap, imgcontent)
+            logging.info('Mailing image %s', cap)
+    time.sleep(INTERVAL)
+while True:
+    try:
+        main()
+    except Exception as e:
+        logging.warning(e)
+        time.sleep(60)
+        continue
     time.sleep(INTERVAL)
