@@ -1,0 +1,53 @@
+<aiml version='1.0.1' ENCODING='utf-8'>
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            hello there~
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHO ARE YOU</pattern>
+        <template>
+            I'm a clever robot~
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT CAN YOU DO</pattern>
+        <template>
+            <random>
+                <li>I can do lots of things~</li>
+                <li>You may ask me who am I.</li>
+                <li>I can tell you a joke.</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>TELL ME *</pattern>
+        <template>
+            <random>
+                <li>I'm joking, forget it.</li>
+                <li>You want a robot to tell you a joke? Are you kidding me?</li>
+                <li>I'm not Siri, sorry.</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>MY NAME IS *</pattern>
+        <template>
+            Hello, <set name='name'><star/></set>
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHO AM I</pattern>
+        <template>
+            Hi~, you are <get name='name'/>, as you told me.
+        </template>
+    </category>
+
+    
+</aiml>
