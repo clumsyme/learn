@@ -49,5 +49,17 @@
         </template>
     </category>
 
-    
+    <category>
+        <pattern>*</pattern>
+        <template>
+            How are you?
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SING * SONG</pattern>
+        <template>
+            I won't sing you a song. :D.
+        </template>
+    </category>
 </aiml>
