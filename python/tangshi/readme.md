@@ -4,7 +4,7 @@ It should works in py2k.
 
 ## Example
 ```
-python robot s
+python robot.py s
 ```
 will launch the app for sentences dialogue.
 then
@@ -18,7 +18,7 @@ will response
 
 ## Else
 ```
-python robot a
+python robot.py a
 ```
 will launch the app for author dialogue.
 then
