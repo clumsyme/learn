@@ -1,0 +1,14 @@
+<aiml version='1.0.1' ENCODING='utf-8'>
+    <category>
+        <pattern>LOAD AIML AUTHOR</pattern>
+        <template>
+            <learn>author.aiml</learn>
+        </template>
+    </category>
+    <category>
+        <pattern>LOAD AIML SENTENCE</pattern>
+        <template>
+            <learn>sentence.aiml</learn>
+        </template>
+    </category>
+</aiml>
