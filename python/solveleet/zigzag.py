@@ -33,6 +33,7 @@ class Solution(object):
         """
         simple to understand, needs 'numRows' extra list.
         """
+        l = [[] for _ in range(numRows)]
         j = 0
         for c in s:
             l[j].append(c)
