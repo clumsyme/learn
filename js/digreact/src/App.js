@@ -34,6 +34,11 @@ class Welcome extends Component {
     )
   }
 }
+const fruits = ['Apple', 'Pears', 'Peach']
+const flist = fruits.map((fruit, index) =>
+    <li key={fruit.toString()}>{fruit}</li>
+)
+
 class App extends Component {
   render() {
     return (
@@ -46,6 +51,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Welcome />
+        <ul>{flist}</ul>
       </div>
     );
   }
