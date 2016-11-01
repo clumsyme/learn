@@ -34,10 +34,46 @@ class Welcome extends Component {
     )
   }
 }
-const fruits = ['Apple', 'Pears', 'Peach']
-const flist = fruits.map((fruit, index) =>
+
+class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {value: ''}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value})
+  }
+  handleSubmit(event) {
+    alert('Fruit ' + this.state.value + ' Chosen!')
+  }
+  render() {
+    return (
+      <div>
+        <input
+         type='text'
+         placeholder='Which Fruit...' 
+         value={this.state.value} 
+         onChange={this.handleChange} 
+        />
+        <button onClick={this.handleSubmit}>
+          Submitt
+        </button>
+      </div>
+    )
+  }
+}
+
+function FruitList() {
+  const fruits = ['Apple', 'Pears', 'Peach']
+  const flist = fruits.map((fruit, index) =>
     <li key={fruit.toString()}>{fruit}</li>
-)
+  )
+  return (
+    <ul>{flist}</ul>
+  )
+}
 
 class App extends Component {
   render() {
@@ -51,7 +87,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Welcome />
-        <ul>{flist}</ul>
+        <Form />
+        <FruitList />
       </div>
     );
   }
