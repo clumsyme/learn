@@ -2,6 +2,36 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+class WelcomeMe extends Component {
+  render() {
+    return <h1>Welcome Yan.</h1>
+  }
+}
+class WelcomeWho extends Component {
+  render() {
+    return <h1>Who Are You?</h1>
+  }
+}
+class Welcome extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {isMe: false}
+  }
+  render() {
+    if (this.state.isMe) {
+      return (
+        <div>
+          <WelcomeMe />
+        </div>
+      )
+    }
+    return (
+      <div>
+        <WelcomeWho />
+      </div>
+    )
+  }
+}
 class App extends Component {
   render() {
     return (
@@ -13,6 +43,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Welcome />
       </div>
     );
   }
