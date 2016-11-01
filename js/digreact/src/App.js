@@ -32,7 +32,8 @@ class Welcome extends Component {
       Welcomecom = WelcomeWho
     }
     return (
-      <div onClick={this.changeState}>
+      <div >
+        <button className={'change'} onClick={this.changeState}>Change</button>
         <Welcomecom />
       </div>
     )
