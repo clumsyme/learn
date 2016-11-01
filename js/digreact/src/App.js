@@ -25,16 +25,11 @@ class Welcome extends Component {
     )
   }
   render() {
-    let Welcomecom = null
-    if (this.state.isMe) {
-      Welcomecom = WelcomeMe
-    }else {
-      Welcomecom = WelcomeWho
-    }
+    let isMe = this.state.isMe
     return (
       <div >
         <button className={'change'} onClick={this.changeState}>Change</button>
-        <Welcomecom />
+        {isMe?(<WelcomeMe />):(<WelcomeWho />)}
       </div>
     )
   }
