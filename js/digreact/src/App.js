@@ -16,18 +16,24 @@ class Welcome extends Component {
   constructor(props) {
     super(props)
     this.state = {isMe: false}
+    this.changeState = this.changeState.bind(this)
+  }
+  changeState() {
+    this.setState((prevState, props) => ({
+        isMe: !prevState.isMe
+      })
+    )
   }
   render() {
+    let Welcomecom = null
     if (this.state.isMe) {
-      return (
-        <div>
-          <WelcomeMe />
-        </div>
-      )
+      Welcomecom = WelcomeMe
+    }else {
+      Welcomecom = WelcomeWho
     }
     return (
-      <div>
-        <WelcomeWho />
+      <div onClick={this.changeState}>
+        <Welcomecom />
       </div>
     )
   }
