@@ -1,0 +1,1 @@
+Finish the tutorial of [Django](https://docs.djangoproject.com/en/stable/intro/tutorial01/)
