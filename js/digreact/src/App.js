@@ -12,31 +12,8 @@ class Square extends Component {
 }
 
 class MinBoard extends Component {
-  constructor() {
-    super();
-    // this.state = {
-    //   squares:Array(9).fill(null)
-    // };
-    this.handleClick = this.handleClick.bind(this)
-  }
   renderSquare(j) {
-    return <Square value={this.props.values[this.props.index][j]} onClick={() => this.handleClick(j)}/>;
-  }
-
-  handleClick(j) {
-    const values = this.props.values.slice()
-    console.log(values)
-    let current = this.props.current,
-    index = this.props.index,
-    setBoardState = this.props.setBoardState
-    if (values[index][j] != null) {
-      return
-    }
-    values[index][j] = current
-    setBoardState({
-      values: values,
-      current: current
-    });    
+    return <Square value={this.props.values[j]} onClick={() => this.props.onClick(j)}/>;
   }
 
   render() {
@@ -70,25 +47,40 @@ class Board extends Component {
       values: [array.slice(), array.slice(), array.slice(), 
                array.slice(), array.slice(), array.slice(),
                array.slice(), array.slice(), array.slice(),
-               ],
+              ],
       current:null
     }
-    this.setState = this.setState.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleNumsClick = this.handleNumsClick.bind(this)
   }
+
   renderMinBoard(i) {
-    return <MinBoard values={this.state.values}
+    return <MinBoard values={this.state.values[i]}
                      current={this.state.current}
-                     index={i}
-                     setBoardState={this.setState}
-                     onClick={() => this.handleClick(i)}/>;
+                     onClick={(j) => this.handleClick(i, j)} />;
   }
+
   renderNumSquare(i) {
     return <Square value={i} onClick={() => this.handleNumsClick(i)} />
   }
+
   handleNumsClick(i) {
     this.setState(
       {current: i}
     )
+  }
+
+  handleClick(i, j) {
+    const values = this.state.values.slice()
+    let current = this.state.current
+    console.log(values, current)
+    if (values[i][j] != null) {
+      return
+    }
+    values[i][j] = current
+    this.setState({
+      values: values
+    });    
   }
 
   render() {
@@ -104,7 +96,7 @@ class Board extends Component {
           {this.renderNumSquare(7)}
           {this.renderNumSquare(8)}
           {this.renderNumSquare(9)}
-        </div><br />
+        </div>
         <div className="board-row">
           {this.renderMinBoard(0)}
           {this.renderMinBoard(1)}
