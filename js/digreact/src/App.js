@@ -14,27 +14,28 @@ class Square extends Component {
 class MinBoard extends Component {
   constructor() {
     super();
-    this.state = {
-      squares:Array(9).fill(''),
-      next: 1
-    };
+    // this.state = {
+    //   squares:Array(9).fill(null)
+    // };
     this.handleClick = this.handleClick.bind(this)
   }
-  renderSquare(i) {
-    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+  renderSquare(j) {
+    return <Square value={this.props.values[this.props.index][j]} onClick={() => this.handleClick(j)}/>;
   }
 
-  handleClick(i) {
-    const squares = this.state.squares
-    let next = this.state.next
-    if (squares[i] != '') {
+  handleClick(j) {
+    const values = this.props.values.slice()
+    console.log(values)
+    let current = this.props.current,
+    index = this.props.index,
+    setBoardState = this.props.setBoardState
+    if (values[index][j] != null) {
       return
     }
-    squares[i] = next
-    next = next===9?1:next+1
-    this.setState({
-      squares: squares,
-      next: next,
+    values[index][j] = current
+    setBoardState({
+      values: values,
+      current: current
     });    
   }
 
@@ -62,26 +63,48 @@ class MinBoard extends Component {
 }
 
 class Board extends Component {
-  renderMinBoard(i) {
-    return <MinBoard />;
+  constructor(props) {
+    super(props)
+    var array = new Array(9).fill(null)
+    this.state = {
+      values: [array.slice(), array.slice(), array.slice(), 
+               array.slice(), array.slice(), array.slice(),
+               array.slice(), array.slice(), array.slice(),
+               ],
+      current:null
+    }
+    this.setState = this.setState.bind(this)
   }
-
-//   handleClick(i) {
-//     // const squares = this.state.squares[i].slice();
-//     // if (calculateWinner(squares) || squares[i]) {
-//     //   return;
-//     // }
-//     // squares[i] = this.state.xIsNext ? 'X' : 'O';
-//     this.setState({
-//       squares: Array(9).fill(Array(9).fill('0')),
-//       xIsNext: !this.state.xIsNext,
-//     });
-// }
+  renderMinBoard(i) {
+    return <MinBoard values={this.state.values}
+                     current={this.state.current}
+                     index={i}
+                     setBoardState={this.setState}
+                     onClick={() => this.handleClick(i)}/>;
+  }
+  renderNumSquare(i) {
+    return <Square value={i} onClick={() => this.handleNumsClick(i)} />
+  }
+  handleNumsClick(i) {
+    this.setState(
+      {current: i}
+    )
+  }
 
   render() {
     return (
       <div className='board'>
-        <div className="status">{status}</div>
+        <div className="nums">
+          {this.renderNumSquare(1)}
+          {this.renderNumSquare(2)}
+          {this.renderNumSquare(3)}
+          {this.renderNumSquare(4)}
+          {this.renderNumSquare(5)}
+          {this.renderNumSquare(6)}
+          {this.renderNumSquare(7)}
+          {this.renderNumSquare(8)}
+          {this.renderNumSquare(9)}
+        </div><br />
         <div className="board-row">
           {this.renderMinBoard(0)}
           {this.renderMinBoard(1)}
