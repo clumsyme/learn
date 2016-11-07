@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import sudokus from './Sudokus'
+import SudokuGenerator from './SudokuGenerator'
 
 class Square extends Component {
   render() {
     return (
-      <button className={this.props.className} onClick={() => this.props.onClick()}>
+      <button style={this.props.style} className={this.props.className} onClick={() => this.props.onClick()}>
         {this.props.value}
       </button>
     );
@@ -13,11 +14,27 @@ class Square extends Component {
 
 class Row extends Component {
   renderSquare(j) {
-    return <Square className='square' value={this.props.values[j]} onClick={() => this.props.onClick(j)}/>;
+    var squareStyle,
+    i = this.props.row
+    if (this.props.highlight.has(parseFloat(i + '.' + j))) {
+      squareStyle = this.props.styles.highlight
+    }
+    if (this.props.filter.has(parseFloat(i + '.' + j))) {
+      squareStyle = this.props.styles.filter
+    }
+    if (parseFloat(i + '.' + j) === this.props.chosen) {
+      squareStyle = this.props.styles.chosen
+    }
+    return <Square style={squareStyle} 
+                   className='square' 
+                   row={this.props.row}
+                   col={j}
+                   value={this.props.values[j]} 
+                   onClick={() => this.props.onClick(j)}/>;
   }
   render() {
     return (
-      <div className='row'>
+      <div style={this.props.style} className='row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
@@ -35,6 +52,11 @@ class Row extends Component {
 class Board extends Component {
   renderRow(i) {
     return <Row values={this.props.values[i]}
+                row={i}
+                styles={this.props.styles}
+                filter={this.props.filter}
+                highlight={this.props.highlight}
+                chosen={this.props.chosen}
                 onClick={(j) => this.props.onClick(i, j)} />;
   }
   render() {
@@ -54,92 +76,51 @@ class Board extends Component {
   }
 }
 
-
+class Control extends Component {
+    render() {
+        return (
+            <li className={this.props.className} onClick={() => this.props.onClick()}>
+                {this.props.value}
+            </li>
+        )
+    }
+}
+// class Menu extends Component {
+//     renderControl(className, value) {
+//         return <Control className={className} value={value} />
+//     }
+//     render
+// }
 class Game extends Component {
   constructor(props) {
     super(props)
     var random = Math.floor(Math.random() * 8),
     grid = sudokus.easy[random],
     sudoku = new SudokuGenerator(grid).generate()
+    this.styles = {
+        highlight: {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            color: '#00FF00',
+        },
+        filter: {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            color: '#0000FF',
+        },
+        chosen: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            color: '#0000FF',
+        }
+    }
     this.state = {
       values:sudoku[0],
       solution:sudoku[1],
       solved: false,
       current:null,
-      possible:null
+      possible:null,
+      chosen:null,
+      filter: new Set(),
+      highlight:new Set()
     }
-  }
-
-  checkPossible(i, j) {
-      var values = this.state.values
-      console.log(values[i])
-      var allPossible = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
-      var n = (Math.floor(i/3) * 3 + Math.floor(j/3))
-      for (let k = 0; k <= 8; k++) {
-          if (allPossible.has(values[i][k])) {
-              allPossible.delete(values[i][k])
-          }
-      }
-      for (let k = 0; k <= 8; k++) {
-          if (allPossible.has(values[k][j])) {
-              allPossible.delete(values[k][j])
-          }
-      }
-      var bi = Math.floor(n / 3) * 3,
-      bj = (n % 3) * 3
-      for (let m = bi; m < bi+3; m++) {
-          for (let n = bj; n < bj+3; n++){
-              if (allPossible.has(values[m][n])) {
-              allPossible.delete(values[m][n])
-              }
-          }
-      }
-      this.setState({
-          possible:Array.from(allPossible)
-      })
-      return Array.from(allPossible)
-  }
-
-  renderNumSquare(i) {
-    return <Square draggable='true' className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
-  }
-
-  handleNumsClick(i) {
-    this.setState(
-      {current: '' + i}
-    )
-  }
-
-  hint() {
-      var possibles = []
-      for (let i = 0; i < 9; i++) {
-          for (let j = 0; j < 9; j++) {
-              if (this.state.values[i][j]) {
-                  continue
-              }
-              let possible = this.checkPossible(i, j)
-              if (possible.length === 1) {
-                  possibles.push('第' + (i+1) + '行第' + (j+1) + '列是' + possible)
-              }
-          }
-      }
-      alert(possibles[0])
-  }
-
-  handleClick(i, j) {
-    var values = this.state.values.slice()
-    var thisvalue = values[i].slice()
-    let current = this.state.current
-    if (thisvalue[j] !== null) {
-      return
-    }
-    this.checkPossible(i, j)
-    thisvalue[j] = current
-    values[i] = thisvalue
-    this.setState({
-      values: values,
-      current: null
-    });    
   }
   generate(degree) {
     let puzzles
@@ -173,8 +154,93 @@ class Game extends Component {
     this.setState ({
         values:puzzle,
         solution:solution,
-        current:null
+        current:null,
+        chosen:null,
+        filter:new Set(),
+        highlight:new Set()
     })
+  }
+  checkPossible(i, j) {
+      var values = this.state.values
+      console.log(values[i])
+      var allPossible = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
+      var n = (Math.floor(i/3) * 3 + Math.floor(j/3))
+      for (let k = 0; k <= 8; k++) {
+          if (allPossible.has(values[i][k])) {
+              allPossible.delete(values[i][k])
+          }
+      }
+      for (let k = 0; k <= 8; k++) {
+          if (allPossible.has(values[k][j])) {
+              allPossible.delete(values[k][j])
+          }
+      }
+      var bi = Math.floor(n / 3) * 3,
+      bj = (n % 3) * 3
+      for (let m = bi; m < bi+3; m++) {
+          for (let n = bj; n < bj+3; n++){
+              if (allPossible.has(values[m][n])) {
+              allPossible.delete(values[m][n])
+              }
+          }
+      }
+      this.setState({
+          possible:Array.from(allPossible)
+      })
+      return Array.from(allPossible)
+  }
+  filter(value) {
+      var values = this.state.values
+      var filter = new Set()
+      for (let m = 0; m < 9; m++) {
+          for (let n = 0; n < 9; n++) {
+              console.log(values[m][n])
+              if (values[m][n] === value) {
+                  filter.add(parseFloat(m + '.' + n))
+              }
+          }
+      }
+      this.setState({
+          filter: filter,
+          highlight: new Set(),
+          chosen: null
+      })
+  }
+  highlight(i, j) {
+    var highlight = new Set()
+    for (let k = 0; k < 9; k++) {
+        highlight.add(parseFloat(i + '.' + k))
+    }
+    for (let k = 0; k < 9; k++) {
+        highlight.add(parseFloat(k + '.' + j))
+    }
+    var line = Math.floor(i / 3) * 3,
+    row = Math.floor(j / 3) * 3
+    for (let ln = line; ln < line + 3; ln++) {
+        for (let r = row; r < row + 3; r++) {
+            highlight.add(parseFloat(ln + '.' + r))
+        }
+    }
+    this.setState({
+        highlight: highlight,
+        filter: new Set(),
+        chosen: null
+    })
+  }
+  hint() {
+      var possibles = []
+      for (let i = 0; i < 9; i++) {
+          for (let j = 0; j < 9; j++) {
+              if (this.state.values[i][j]) {
+                  continue
+              }
+              let possible = this.checkPossible(i, j)
+              if (possible.length === 1) {
+                  possibles.push('第' + (i+1) + '行第' + (j+1) + '列是' + possible)
+              }
+          }
+      }
+      alert(possibles[0])
   }
   solve() {
       var values = this.state.values,
@@ -186,30 +252,67 @@ class Game extends Component {
             solved:!solved
         })
   }
+  handleClick(i, j) {
+    var values = this.state.values.slice()
+    var thisvalue = values[i].slice()
+    if (thisvalue[j] !== null) {
+      this.filter(thisvalue[j])
+      return
+    }
+    if (!this.state.current) {
+      this.highlight(i, j)
+    }
+    let current = this.state.current
+    this.checkPossible(i, j)
+    thisvalue[j] = current
+    values[i] = thisvalue
+    this.setState({
+      values: values,
+      current: null,
+      chosen:parseFloat(i + '.' + j)
+    });    
+  }
+  handleNumsClick(i) {
+    this.filter('' + i)
+    this.setState(
+      {current: '' + i}
+    )
+  }
+  renderChoice(i) {
+    return <Control className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
+  }
+  renderControl(value) {
+    return <Control className="degree" value={value} onClick={() => this.generate(value)} />
+  }
   render() {
     return (
       <div className="game">
-        <div className="choices">
-          {this.renderNumSquare(1)}
-          {this.renderNumSquare(2)}
-          {this.renderNumSquare(3)}
-          {this.renderNumSquare(4)}
-          {this.renderNumSquare(5)}
-          {this.renderNumSquare(6)}
-          {this.renderNumSquare(7)}
-          {this.renderNumSquare(8)}
-          {this.renderNumSquare(9)}
-        </div>
-        <Board values={this.state.values} onClick={(i, j) => this.handleClick(i, j)}/>
+        <ul className="choices">
+          {this.renderChoice(1)}
+          {this.renderChoice(2)}
+          {this.renderChoice(3)}
+          {this.renderChoice(4)}
+          {this.renderChoice(5)}
+          {this.renderChoice(6)}
+          {this.renderChoice(7)}
+          {this.renderChoice(8)}
+          {this.renderChoice(9)}
+        </ul>
+        <Board values={this.state.values}
+               filter={this.state.filter}
+               styles={this.styles}
+               chosen={this.state.chosen}
+               highlight={this.state.highlight}   
+               onClick={(i, j) => this.handleClick(i, j)}/>
         <ul className="controls">
-            <li className="degree" value="veryeasy" onClick={() => this.generate('veryeasy')} >veasy</li>
-            <li className="degree" value="easy" onClick={() => this.generate('easy')} >easy</li>
-            <li className="degree" value="medium" onClick={() => this.generate('medium')} >medium</li>
-            <li className="degree" value="hard" onClick={() => this.generate('tough')} >hard</li>
-            <li className="degree" value="veryhard" onClick={() => this.generate('verytough')} >vhard</li>
-            <li className="degree" value="extreme" onClick={() => this.generate('extreme')} >hell</li>
-            <li className="solve" value="Solve" onClick={() => this.hint()} >hint</li>
-            <li className="solve" value="Solve" onClick={() => this.solve()} >showans</li>
+          {this.renderControl("veryeasy")}
+          {this.renderControl("easy")}
+          {this.renderControl("medium")}
+          {this.renderControl("tough")}
+          {this.renderControl("verytough")}
+          {this.renderControl("extreme")}
+          <Control className="hint" value="Hint" onClick={() => this.hint()} />
+          <Control className="solve" value="Solve" onClick={() => this.solve()} />
         </ul>
         <div className="game-info">
           <p className="possible" value={this.state.possible}>{this.state.possible}</p>
@@ -219,147 +322,3 @@ class Game extends Component {
   }
 }
 export default Game
-
-// ========================================
-
-class SudokuGenerator {
-    constructor(grid) {
-        this.grid = grid
-        this.nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        this.chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
-    }
-    shuffleArray(array) {
-        for (let i = array.length; i; i--) {
-            let j = Math.floor(Math.random() * i);
-            [array[i - 1], array[j]] = [array[j], array[i - 1]];
-        }
-    }
-    shuffleGrid() {
-        var nums, chars, shuffledNums, shuffledChars,
-            index1, index2, index3, index, rotate,
-            numMap, charMap, tempGrid, grid
-        grid = this.grid
-        nums = this.nums.slice()
-        chars = this.chars.slice()
-        index1 = [0, 1, 2]
-        index2 = [3, 4, 5]
-        index3 = [6, 7, 8]
-        // shuffle symbols
-        shuffledNums = nums.slice()
-        shuffledChars = []
-        this.shuffleArray(shuffledNums)
-        for (let num of shuffledNums) {
-            shuffledChars.push(chars[parseInt(num, 10)-1])
-        }
-        numMap = new Map()
-        charMap = new Map()
-        for (let i=0; i<9; i++) {
-            numMap.set(nums[i], shuffledNums[i])
-        }
-        for (let i=0; i<9; i++) {
-            charMap.set(chars[i], shuffledChars[i])
-        }
-        tempGrid = ''
-        for (let c of grid) {
-            if (numMap.has(c)) {
-                tempGrid += numMap.get(c)
-            }else {
-                tempGrid += charMap.get(c)
-            }
-        }
-        grid = tempGrid
-        // shuffle rows
-        this.shuffleArray(index1)
-        this.shuffleArray(index2)
-        this.shuffleArray(index3)
-        index = index1.concat(index2).concat(index3)
-        tempGrid = ''
-        for (let i of index) {
-            tempGrid += grid.slice(i*9, i*9+9)
-        }
-        grid = tempGrid
-        // shuffle cols
-        this.shuffleArray(index1)
-        this.shuffleArray(index2)
-        this.shuffleArray(index3)
-        index = index1.concat(index2).concat(index3)
-        tempGrid = ''
-        for (let i = 0; i<9; i++) {
-            for (let j of index){
-                tempGrid += grid.slice(i*9, i*9+9)[j]
-            }
-        }
-        grid = tempGrid
-        // shuffle blockRows
-        this.shuffleArray(index1)
-        tempGrid = ''
-        for (let i of index1) {
-            tempGrid += grid.slice(i*3*9, i*3*9+27)
-        }
-        grid = tempGrid
-        // shuffle blockCols
-        this.shuffleArray(index1)
-        tempGrid = ''
-        for (let i = 0; i < 9; i++) {
-            for (let j of index1){
-                tempGrid += grid.slice(i*9, i*9+9).slice(j*3, j*3+3)
-            }
-        }
-        grid = tempGrid
-        // rotate left | none | right
-        tempGrid = ''
-        rotate = [-1, 0, 1][Math.floor(Math.random()*3)]
-        if (rotate === 0){
-        }else if (rotate === -1) {
-            for (let i = 8; i >= 0; i--) {
-                for (let j = 0; j <=8; j++) {
-                    tempGrid += grid[j*9+i]
-                }
-            }
-            grid = tempGrid
-        }else {
-            for (let i = 0; i <= 8; i++) {
-                for (let j = 8; j >= 0; j--) {
-                    tempGrid += grid[j*9+i]
-                }
-            }
-            grid = tempGrid
-        }
-        return grid
-    }
-
-    generate() {
-        var numSet = new Set(this.nums)
-        var charSet = new Set(this.chars)
-        var map = new Map()
-        for (let i = 0; i <= 8; i++) {
-            map.set(this.chars[i], this.nums[i])
-        }
-        var pattern = this.shuffleGrid()
-        var puzzle = []
-        for (let i = 0; i <= 8; i++) {
-            let row = []
-            for (let j = 0; j <= 8; j++) {
-                if (numSet.has(pattern[9*i+j])) {
-                    row.push(pattern[9*i+j])
-                }else {
-                    row.push(null)
-                }
-            }
-            puzzle.push(row)
-        }
-        var solution = []
-        for (let i = 0; i <= 8; i++) {
-            let row = []
-            for (let j = 0; j <= 8; j++) {
-                if (charSet.has(pattern[9*i+j])) {
-                    row.push(map.get(pattern[9*i+j]))
-                }else {
-                    row.push(pattern[9*i+j])
-                }
-            }
-            solution.push(row)
-        }
-        return [puzzle, solution]
-    }
-}
