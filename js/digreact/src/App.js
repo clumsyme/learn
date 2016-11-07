@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import sudokus from './Sudokus'
 
 class Square extends Component {
   render() {
     return (
-      <button className="square" onClick={() => this.props.onClick()}>
+      <button className={this.props.className} onClick={() => this.props.onClick()}>
         {this.props.value}
       </button>
     );
@@ -14,7 +13,7 @@ class Square extends Component {
 
 class Row extends Component {
   renderSquare(j) {
-    return <Square value={this.props.values[j]} onClick={() => this.props.onClick(j)}/>;
+    return <Square className='square' value={this.props.values[j]} onClick={() => this.props.onClick(j)}/>;
   }
   render() {
     return (
@@ -41,7 +40,6 @@ class Board extends Component {
   render() {
     return (
       <div className='board'>
-        <div className="playboard">
           {this.renderRow(0)}
           {this.renderRow(1)}
           {this.renderRow(2)}
@@ -51,7 +49,6 @@ class Board extends Component {
           {this.renderRow(6)}
           {this.renderRow(7)}
           {this.renderRow(8)}
-        </div>
       </div>
     );
   }
@@ -67,28 +64,76 @@ class Game extends Component {
     this.state = {
       values:sudoku[0],
       solution:sudoku[1],
-      current:null
+      solved: false,
+      current:null,
+      possible:null
     }
   }
 
+  checkPossible(i, j) {
+      var values = this.state.values
+      console.log(values[i])
+      var allPossible = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
+      var n = (Math.floor(i/3) * 3 + Math.floor(j/3))
+      for (let k = 0; k <= 8; k++) {
+          if (allPossible.has(values[i][k])) {
+              allPossible.delete(values[i][k])
+          }
+      }
+      for (let k = 0; k <= 8; k++) {
+          if (allPossible.has(values[k][j])) {
+              allPossible.delete(values[k][j])
+          }
+      }
+      var bi = Math.floor(n / 3) * 3,
+      bj = (n % 3) * 3
+      for (let m = bi; m < bi+3; m++) {
+          for (let n = bj; n < bj+3; n++){
+              if (allPossible.has(values[m][n])) {
+              allPossible.delete(values[m][n])
+              }
+          }
+      }
+      this.setState({
+          possible:Array.from(allPossible)
+      })
+      return Array.from(allPossible)
+  }
+
   renderNumSquare(i) {
-    return <Square value={i} onClick={() => this.handleNumsClick(i)} />
+    return <Square draggable='true' className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
   }
 
   handleNumsClick(i) {
     this.setState(
-      {current: i}
+      {current: '' + i}
     )
+  }
+
+  hint() {
+      var possibles = []
+      for (let i = 0; i < 9; i++) {
+          for (let j = 0; j < 9; j++) {
+              if (this.state.values[i][j]) {
+                  continue
+              }
+              let possible = this.checkPossible(i, j)
+              if (possible.length === 1) {
+                  possibles.push('第' + (i+1) + '行第' + (j+1) + '列是' + possible)
+              }
+          }
+      }
+      alert(possibles[0])
   }
 
   handleClick(i, j) {
     var values = this.state.values.slice()
     var thisvalue = values[i].slice()
     let current = this.state.current
-    console.log(thisvalue, current)
     if (thisvalue[j] !== null) {
       return
     }
+    this.checkPossible(i, j)
     thisvalue[j] = current
     values[i] = thisvalue
     this.setState({
@@ -116,14 +161,15 @@ class Game extends Component {
             break
         case 'extreme':
             puzzles = sudokus.extreme
-            break   
+            break 
+        default:
+            puzzles = sudokus.easy  
     }
     var random = Math.floor(Math.random() * 8)
     var grid = puzzles[random],
     sudoku = new SudokuGenerator(grid).generate(),
     puzzle = sudoku[0],
     solution = sudoku[1]
-    console.log(puzzle)
     this.setState ({
         values:puzzle,
         solution:solution,
@@ -131,15 +177,19 @@ class Game extends Component {
     })
   }
   solve() {
-      var solution = this.state.solution
+      var values = this.state.values,
+      solution = this.state.solution,
+      solved = this.state.solved
       this.setState({
-          values:solution
-      })
+            values:solution,
+            solution:values,
+            solved:!solved
+        })
   }
   render() {
     return (
       <div className="game">
-        <div className="nums">
+        <div className="choices">
           {this.renderNumSquare(1)}
           {this.renderNumSquare(2)}
           {this.renderNumSquare(3)}
@@ -150,21 +200,19 @@ class Game extends Component {
           {this.renderNumSquare(8)}
           {this.renderNumSquare(9)}
         </div>
-        <div className="game-board">
-          <Board values={this.state.values}  onClick={(i, j) => this.handleClick(i, j)}/>
-        </div>
-        <div className="degree">
-            <button className="easy" onClick={() => this.generate('veryeasy')}>veryeasy</button>
-            <button className="mid" onClick={() => this.generate('easy')}>easy</button>
-            <button className="hard" onClick={() => this.generate('medium')}>medium</button>
-            <button className="easy" onClick={() => this.generate('tough')}>hard</button>
-            <button className="mid" onClick={() => this.generate('verytough')}>veryhard</button>
-            <button className="hard" onClick={() => this.generate('extreme')}>extreme</button>
-            <button className="solve" onClick={() => this.solve()}>Solve</button>
-        </div>
+        <Board values={this.state.values} onClick={(i, j) => this.handleClick(i, j)}/>
+        <ul className="controls">
+            <li className="degree" value="veryeasy" onClick={() => this.generate('veryeasy')} >veasy</li>
+            <li className="degree" value="easy" onClick={() => this.generate('easy')} >easy</li>
+            <li className="degree" value="medium" onClick={() => this.generate('medium')} >medium</li>
+            <li className="degree" value="hard" onClick={() => this.generate('tough')} >hard</li>
+            <li className="degree" value="veryhard" onClick={() => this.generate('verytough')} >vhard</li>
+            <li className="degree" value="extreme" onClick={() => this.generate('extreme')} >hell</li>
+            <li className="solve" value="Solve" onClick={() => this.hint()} >hint</li>
+            <li className="solve" value="Solve" onClick={() => this.solve()} >showans</li>
+        </ul>
         <div className="game-info">
-          <div>{/* */}</div>
-          <ol>{/* TODO */}</ol>
+          <p className="possible" value={this.state.possible}>{this.state.possible}</p>
         </div>
       </div>
     );
@@ -262,7 +310,6 @@ class SudokuGenerator {
         tempGrid = ''
         rotate = [-1, 0, 1][Math.floor(Math.random()*3)]
         if (rotate === 0){
-
         }else if (rotate === -1) {
             for (let i = 8; i >= 0; i--) {
                 for (let j = 0; j <=8; j++) {
@@ -289,7 +336,6 @@ class SudokuGenerator {
             map.set(this.chars[i], this.nums[i])
         }
         var pattern = this.shuffleGrid()
-        console.log(pattern)
         var puzzle = []
         for (let i = 0; i <= 8; i++) {
             let row = []
