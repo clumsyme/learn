@@ -122,12 +122,14 @@ class Game extends Component {
         }
         this.styles = {
             highlight: {
+                transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
                 // border: '1px solid #fbbc05',
                 // margin: '-1px'
                 // color: '#00FF00',
             },
             filter: {
+                transition: 'background-color 0.2s',
                 // transition: 'transform 1s ease',
                 // transform: 'rotate(1turn)',
                 boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.8)',
@@ -135,23 +137,26 @@ class Game extends Component {
                 color: '#4285f4',
             },
             chosen: {
-                backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                transition: 'background-color 0.2s',
+                backgroundColor: 'rgba(155, 204, 20, 0.3)',
                 // boxShadow: '3px 3px 3px 3px rgba(0, 0, 0, 0.8)',
-                color: '#fbbc05',
+                // color: '#fbbc05',
             },
             origin: {
                 backgroundColor: 'rgba(200, 200, 200, 0.1)',
                 color: '#ea4335'
             },
             originHighlight: {
+                transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
                 // border: '1px solid #fbbc05',
                 // margin: '-1px',
                 color: '#ea4335'
             },
             originFilter: {
+                transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(255, 13, 126, 0.2)',
-                boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.9)',
+                // boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.9)',
                 color: '#ea4335'
             },
             control: {
@@ -168,12 +173,15 @@ class Game extends Component {
             },
             hint: [
                 {
+                    transition: 'background-color 0.5s',
                     backgroundColor: 'rgba(52, 168, 83, 0.2)'
                 },
                 {
+                    transition: 'background-color 0.5s',
                     backgroundColor: 'rgba(251, 188, 5, 0.2)'
                 },
                 {
+                    transition: 'background-color 0.5s',
                     backgroundColor: 'rgba(255, 13, 126, 0.2)'
                 }
             ]
@@ -475,7 +483,7 @@ class Game extends Component {
         var values = this.state.values.slice()
         var thisvalue = values[i].slice()
         let chosen
-        if (values[i][j]) {
+        if (this.state.origin.has(i + '.' + j)) {
             this.filter(thisvalue[j])
             return
         } else {
@@ -506,7 +514,7 @@ class Game extends Component {
                 {
                     values: values,
                     highlight: new Set(),
-                    chosen: null
+                    // chosen: null
                 }
             )
             console.log('v-----' + values.toString())
@@ -515,8 +523,6 @@ class Game extends Component {
                 alert('恭喜你，完成了这个难题！')
             }
         }
-
-
     }
     renderChoice(i) {
         return <Square className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
@@ -539,16 +545,14 @@ class Game extends Component {
         var hintStyle = this.styles.hint[2 - this.state.helps]
         return (
             <div className="game">
-                <div className="header">
-                    <img className="logo" alt="playSudoku" src={logo} />
-                    <ul className="controls">
-                        {this.renderControl("非常简单")}
-                        {this.renderControl("简单")}
-                        {this.renderControl("中等")}
-                        {this.renderControl("困难")}
-                        {this.renderControl("非常困难")}
-                    </ul>
-                </div>
+                <img className="logo" alt="playSudoku" src={logo} />
+                <ul className="controls">
+                    {this.renderControl("非常简单")}
+                    {this.renderControl("简单")}
+                    {this.renderControl("中等")}
+                    {this.renderControl("困难")}
+                    {this.renderControl("非常困难")}
+                </ul>
                 <div className="main">
                     <div className="left">
                         <Square className="delete" value="x" onClick={() => this.handleNumsClick("x")} />

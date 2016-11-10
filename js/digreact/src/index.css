@@ -3,26 +3,23 @@ html {
 }
 body {
   margin: 0;
-  padding: 1em 0 0 0;
+  padding: 2em 0 0;
   height: 100%;
+  min-width: 375px;
   overflow: hidden;
   font: 12px 'Tempus Sans ITC';
   background:#000000 url(board.jpg) repeat;
   user-select: none
 }
-@media only screen and (min-width: 500px) {
-  .logo {
-    width: 1000px;
-    height: 200px;
-  }
-}
+
 .logo {
-    position: fixed;
-    left: 5%;
-    width: 150px;
-    height:70px;
+    position: absolute;
+    top: 20%;
+    left: 8%;
+    width: 20%;
+    height:9vw;
     transform: rotate(-15deg);
-    opacity:0.3;
+    opacity:0.4;
 }
 .main {
     position: relative;
@@ -57,6 +54,9 @@ body {
 .row:nth-child(1) {
     border-top: 2px solid rgba(251, 255, 254, 0.8);
 }
+button {
+    padding: 0
+}
 button:focus {
   outline: none;
 }
@@ -86,8 +86,7 @@ button:focus {
     min-width: 270px;
     height: 4vw;
     min-height: 30px;
-    /*min-width: 288px;
-    min-height: 32px;*/
+    margin-top: 4px;
     padding: 0;
 }
 .choice{
@@ -96,16 +95,16 @@ button:focus {
     display: inline-block;
     font-family: 'Tempus Sans ITC';
     background: rgba(0, 0, 0, 0.2);
-    font-weight: 800;
+    /*font-weight: 800;*/
     font-size: 1.5em;
-    color: #fff;
+    color: #4285f4;
     border: 1px dashed rgba(251, 255, 254, 0.8);
     border-radius: 50%;
     cursor: pointer;
 }
 .controls {
-    height: 40px;
-    margin: 2em 0 0 0;
+    height: 2em;
+    margin: 0 0 2em;
     padding: 0;
     list-style: none;
     text-align: center;
@@ -154,6 +153,7 @@ button:focus {
     color: #fbbc05;
     filter: blur(12px)
 }
+
 .solve, .delete {
     width: 50%;
     height: 9.72%;
@@ -164,4 +164,32 @@ button:focus {
 }
 .delete {
     right: 0;
+}
+
+@media screen and (max-aspect-ratio: 5/3) {
+    .main {
+        width: 70%;
+        height:50.4vw;
+    }
+    .choices {
+        width: 50.4%;
+        height: 5.6vw;
+    }
+    .logo {
+        left: 3%
+    }
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+    .logo {
+        position: relative;
+        left: initial;
+        margin: 0 auto 1em;
+        width: 20%;
+        height: 9vw;
+        display: block;
+        /*margin: 0 auto;*/
+        transform: rotate(0deg);
+        opacity:0.4;
+    }
 }
