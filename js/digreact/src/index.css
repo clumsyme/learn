@@ -1,97 +1,167 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Comic Sans';
-  background-image: url(board.jpg)
+  padding: 1em 0 0 0;
+  height: 100%;
+  overflow: hidden;
+  font: 12px 'Tempus Sans ITC';
+  background:#000000 url(board.jpg) repeat;
+  user-select: none
 }
-.square{
-    font-family: 'Tempus Sans ITC';
-    font-size: 25px;
+@media only screen and (min-width: 500px) {
+  .logo {
+    width: 1000px;
+    height: 200px;
+  }
+}
+.logo {
+    position: fixed;
+    left: 5%;
+    width: 150px;
+    height:70px;
+    transform: rotate(-15deg);
+    opacity:0.3;
+}
+.main {
     position: relative;
-    border: 1px dashed #C5E5DA;
-    background-color: rgba(255, 255, 255, 0);
-    color: #FFF;
-    width: 11.11111%;
-    height: 100%;
-    padding: 0;
-    float: left
-}
-.square:nth-child(3n) {
-    border-right: 2px solid #FBFFFE;
-}
-.square:hover {
-    background: 
-}
-.choices {
-    position: absolute;
-    left: 22.5%;
-    width: 5vw;
-    height: 45vw;
-}
-.choice{
-    font-family: 'Tempus Sans ITC';
-    position: relative;
-    width: 100%;
-    height: 11.111%;
-    background: rgba(0, 0, 0, 0);
-    font-weight: 800;
-    font-size: 2em;
-    color: #fff;
-    border: 3px solid #fff;
-    border-radius: 38%;
-}
-.row {
-    position: relative;
-    width: 100%;
-    height: 11.11111%
-}
-.row::after {
-    content: '';
-    display: block;
-    clear: both;
-}
-.row:nth-child(3n) {
-    border-bottom: 2px solid #FBFFFE;
-}
-.controls {
-    position: absolute;
-    right: 22.5%;
-    width: 5vw;
-}
-.degree, .solve {
-    display: inline-block;
-    padding: 0.5em 0.5em;
-    cursor: pointer;
-    font-family: 'Tempus Sans ITC';
-    position: relative;
-    width: 100%;
-    height: 11.111%;
-    font-size: 1.5em;
-    color: #fff;
-    border-radius: 100%;
+    margin: 0 auto;
+    width: 50%;
+    min-width: 375px;
+    height: 36vw;
+    min-height: 270px;
 }
 .board {
     position: absolute;
-    left: 27.5vw;
-    width: 45vw;
-    height: 45vw;
-    background: url(board.jpg);
-    border-left: 2px solid #C5E5DA;
-    border-top: 2px solid #C5E5DA;
+    left: 14%;
+    margin: 0 auto;
+    display: inline-block;
+    width: 72%;
+    height: 100%;
+    /*min-width: 288px;
+    min-height: 288px;*/
+    /*min-width: 15em;
+    min-height: 15em;*/
 }
-.possible {
-    color: #FFF;
-    font-size: 2em;
-    position: absolute;
-    right: 10%;
-    top: 10%
+.row {
+    border-bottom: 1px dashed rgba(197,229,218,0.55);
+    margin-bottom: -1px;
+    width: 100%;
+    height: 11.11111%
 }
-/*.game {
-    left: 22.5vw;
-    width: 55vw;
-    height: 45vw;
-    background: url(board.jpg)
-}*/
-/*.board-row {
+.row:nth-child(3n) {
+    border-bottom: 2px solid rgba(251, 255, 254, 0.8);
+    margin-bottom: -2px
+}
+.row:nth-child(1) {
+    border-top: 2px solid rgba(251, 255, 254, 0.8);
+}
+button:focus {
+  outline: none;
+}
+.square{
+    width: 11.11111%;
+    height: 100%;
     float: left;
-}*/
+    background: rgba(0, 0, 0, 0);
+    font: 2em 'Tempus Sans ITC';
+    color: #4285f4;
+    padding: 0;
+    border-width:0 1px 0 0;
+    border-style: dashed;
+    border-color: rgba(197,229,218,0.55);
+    cursor: pointer;
+}
+.square:nth-child(3n) {
+    border-right: 2px solid rgba(251, 255, 254, 0.8);
+}
+.square:nth-child(1) {
+    border-left: 2px solid rgba(251, 255, 254, 0.8);
+}
+.choices {
+    position: relative;
+    margin: 0 auto;
+    width: 36%;
+    min-width: 270px;
+    height: 4vw;
+    min-height: 30px;
+    /*min-width: 288px;
+    min-height: 32px;*/
+    padding: 0;
+}
+.choice{
+    width: 11.111%;
+    height: 100%;
+    display: inline-block;
+    font-family: 'Tempus Sans ITC';
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 800;
+    font-size: 1.5em;
+    color: #fff;
+    border: 1px dashed rgba(251, 255, 254, 0.8);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.controls {
+    height: 40px;
+    margin: 2em 0 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    line-height: 2em;
+}
+.degree {
+    display: inline-block;
+    padding: 0.5em 0.5em;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.left, .right {
+    position: absolute;
+    width: 14%;
+    height: 100%;
+}
+.right {
+    left: 86%;
+}
+.check, .solve, .hint, .delete {
+    position: absolute;
+    border: 1px dotted #FFF;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fbbc05;
+    cursor: pointer
+}
+.check, .hint {
+    bottom: 0;
+    width: 100%;
+    height: 19.44%;
+    font-size: 1.5em;
+}
+.checktext {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    height: 6em;
+    margin: 0;
+    text-align: center;
+    word-break:break-all;
+    font-size: 2em;
+    color: #fbbc05;
+    filter: blur(12px)
+}
+.solve, .delete {
+    width: 50%;
+    height: 9.72%;
+    background: rgba(0, 0, 0, 0.6)
+}
+.solve {
+    left: 0;
+}
+.delete {
+    right: 0;
+}
