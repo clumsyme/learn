@@ -111,12 +111,6 @@ class Control extends Component {
         )
     }
 }
-// class Menu extends Component {
-//     renderControl(className, value) {
-//         return <Control className={className} value={value} />
-//     }
-//     render
-// }
 class Game extends Component {
     constructor(props) {
         super(props)
@@ -135,39 +129,27 @@ class Game extends Component {
         }
         this.styles = {
             highlight: {
-                // transition: 'transform background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
                 animation: 'highlight 2s'
             },
             filter: {
-                // transition: 'background-color 0.2s',
-                // transition: 'transform 1s ease',
-                // transform: 'rotate(1turn)',
                 boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.8)',
                 backgroundColor: 'rgba(255, 13, 126, 0.2)',
                 color: '#4285f4',
             },
             chosen: {
-                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(155, 204, 20, 0.3)',
-                // boxShadow: '3px 3px 3px 3px rgba(0, 0, 0, 0.8)',
-                // color: '#fbbc05',
             },
             origin: {
                 backgroundColor: 'rgba(200, 200, 200, 0.1)',
                 color: '#ea4335'
             },
             originHighlight: {
-                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
-                // border: '1px solid #fbbc05',
-                // margin: '-1px',
                 color: '#ea4335'
             },
             originFilter: {
-                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(255, 13, 126, 0.2)',
-                // boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.9)',
                 color: '#ea4335'
             },
             control: {
@@ -175,9 +157,7 @@ class Game extends Component {
                 color: '#ea4335'
             },
             peep: {
-                backgroundColor: 'rgba(251, 188, 5, 0.2)',
-                color: 'black',
-                disabled: 'true',
+                backgroundColor: 'rgba(251, 188, 5, 0.2)'
             },
             check: {
                 filter: 'blur(0)'
@@ -211,7 +191,6 @@ class Game extends Component {
         }
         this.state = {
             values: puzzle,
-            // solution: solution,
             level: '简单',
             origin: origin,
             peep: false,
@@ -273,32 +252,9 @@ class Game extends Component {
             conflict: new Set()
         })
     }
-
-    // checkConflict() {
-    //     var values = this.state.values
-    //     console.log(values)
-    //     var conflict = new Set()
-    //     for (let i = 0; i < 9; i++) {
-    //         for (let j = 0; j < 9; j++) {
-    //             if (!values[i][j]) {
-    //                 continue
-    //             }else {
-    //                 var thisvalue = values[i][j],
-    //                 possible = this.checkPossible(i, j)
-    //                 if (!possible.has(thisvalue)) {
-    //                     conflict.add(i + '.' + j)
-    //                 }   
-    //             }
-    //         }
-    //     }
-    //     this.setState({
-    //         conflict: conflict
-    //     })
-    // }
     checkPossible(i, j) {
         var values = this.state.values
         var allPossible = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9'])
-        //   var n = (Math.floor(i/3) * 3 + Math.floor(j/3))
         for (let k = 0; k <= 8; k++) {
             if (k === j) {continue}
             if (allPossible.has(values[i][k])) {
@@ -311,8 +267,6 @@ class Game extends Component {
                 allPossible.delete(values[k][j])
             }
         }
-        //   var bi = Math.floor(n / 3) * 3,
-        //   bj = (n % 3) * 3
         var bi = Math.floor(i / 3) * 3,
             bj = Math.floor(j / 3) * 3
         for (let m = bi; m < bi + 3; m++) {
@@ -325,9 +279,6 @@ class Game extends Component {
                 }
             }
         }
-        //   this.setState({
-        //       possible:Array.from(allPossible)
-        //   })
         return allPossible
     }
     filter(value) {
@@ -389,126 +340,12 @@ class Game extends Component {
                 helps: helps
             })
         }
-        /* 自动查找填充
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j++) {
-                if (values[i][j]) {
-                    continue
-                }
-                let possible = this.checkPossible(i, j)
-                if (possible.length === 1) {
-                    var hint = [i, j]
-                    values[i][j] = possible[0]
-                    this.setState({
-                        values:values,
-                        chosen:hint,
-                        highlight: new Set(),
-                        filter: new Set(),
-                        possible:null
-                    })
-                    return
-                }else if (possible.length === 2) {
-                    possibles.push([possible, [i, j]])
-                }
-            }
-        }
-        if (possibles.length) {
-            var hinti = possibles[0][1],
-            possiblen = possibles[0][0],
-            ps = ''
-            console.log('hint' + hint)
-            for (let p of possiblen) {
-                ps += (p + '? ')
-            }
-            this.setState({
-                possible:ps,
-                highlight:new Set(),
-                filter: new Set(),
-                chosen:hinti
-            })
-            return
-        }
-        possible = "题目有点难，请先点击方块，再点击提示查看"
-        this.setState({
-            possible:possible
-        })
-        */
     }
     check() {
         this.setState({
             check: true
         })
-        //   var chosen = this.state.chosen,
-        //   values = this.state.values.slice()
-        //   console.log('chosen' + chosen)
-        //   if (chosen && !values[chosen[0]][chosen[1]] && !this.state.possible) {
-        //     //   
-        //       var possible = this.checkPossible(chosen[0], chosen[1])
-        //       this.setState({
-        //           possible:possible
-        //       })
-        //     //   console.log('ok')
-        //   }
     }
-    //   hint() {
-    //       var chosen = this.state.chosen,
-    //       values = this.state.values.slice()
-    //       console.log('chosen' + chosen)
-    //       if (chosen && !values[chosen[0]][chosen[1]] && !this.state.possible) {
-    //         //   
-    //           var possible = this.checkPossible(chosen[0], chosen[1])
-    //           this.setState({
-    //               possible:possible
-    //           })
-    //         //   console.log('ok')
-    //       }else {
-    //           var possibles = []
-    //           for (let i = 0; i < 9; i++) {
-    //               for (let j = 0; j < 9; j++) {
-    //                     if (values[i][j]) {
-    //                         continue
-    //                     }
-    //                     let possible = this.checkPossible(i, j)
-    //                     if (possible.length === 1) {
-    //                         var hint = [i, j]
-    //                         values[i][j] = possible[0]
-    //                         // console.log(values[i][j])
-    //                         // console.log(typeof possible[0])
-    //                         this.setState({
-    //                             values:values,
-    //                             chosen:hint,
-    //                             highlight: new Set(),
-    //                             filter: new Set(),
-    //                             possible:null
-    //                         })
-    //                         return
-    //                     }else if (possible.length === 2) {
-    //                         possibles.push([possible, [i, j]])
-    //                     }
-    //                 }
-    //             }
-    //             if (possibles.length) {
-    //                 var hinti = possibles[0][1],
-    //                 possiblen = possibles[0][0],
-    //                 ps = ''
-    //                 console.log('hint' + hint)
-    //                 for (let p of possiblen) {
-    //                     ps += (p + '? ')
-    //                 }
-    //                 this.setState({
-    //                     possible:ps,
-    //                     highlight:new Set(),
-    //                     filter: new Set(),
-    //                     chosen:hinti
-    //                 })
-    //                 return
-    //             }
-    //             possible = "题目有点难，请先点击方块，再点击提示查看"
-    //             this.setState({
-    //                 possible:possible
-    //             })
-    //       }
-    //   }
     solve() {
         if (this.state.peep) {
             return
@@ -539,7 +376,6 @@ class Game extends Component {
             this.highlight(i, j)
             chosen = [i, j]
             var possible = Array.from(this.checkPossible(i, j)).toString()
-            // console.log(possible)
             this.setState({
                 chosen: chosen,
                 possible: possible,
@@ -555,7 +391,6 @@ class Game extends Component {
             this.filter('' + i)
         } else {
             var values = this.state.values.slice()
-            // if ('' + i !== this.solution[chosen[0]][chosen[1]]) {
             if (this.state.origin.has([chosen[0]][chosen[1]])) {
                 this.setState({
                     chosen: null,
@@ -563,7 +398,7 @@ class Game extends Component {
                 })
                 return
             }
-            if (i === 'x') {
+            if (i === 'X') {
                 values[chosen[0]][chosen[1]] = null
             } else {
                 values[chosen[0]][chosen[1]] = '' + i
@@ -599,9 +434,6 @@ class Game extends Component {
             
         }
     }
-    // renderChoice(i) {
-    //     return <Square className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
-    // }
     renderControl(value) {
         var controlStyle = value === this.state.level?this.styles.control:undefined
         return <Control style={controlStyle} className="level" value={value} onClick={() => this.generate(value)} />
@@ -627,11 +459,11 @@ class Game extends Component {
                 </ul>
                 <div className="main">
                     <div className="left">
-                        <Square className="delete" value="x" onClick={() => this.handleNumsClick("x")} />
+                        <Square className="delete" value="X" onClick={() => this.handleNumsClick("X")} />
                         <div style={checkStyle} className="checktext">
                             <p value={this.state.possible}>{this.state.possible}</p>
                         </div>
-                        <Square className="check" value="C" onClick={() => this.check()} />
+                        <Square className="check" value="?" onClick={() => this.check()} />
                     </div>
                     <Board values={this.state.values}
                         origin={this.state.origin}
@@ -642,7 +474,7 @@ class Game extends Component {
                         highlight={this.state.highlight}
                         onClick={(i, j) => this.handleClick(i, j)} />
                     <div className="right">
-                        <Square className="solve" style={peepStyle} value="?" onClick={() => this.solve()} />
+                        <Square className="solve" style={peepStyle} value="O" onClick={() => this.solve()} />
                         <Square className="hint" style={hintStyle} value={this.state.helps} onClick={() => this.help()} />
                     </div>
                 </div>
@@ -655,7 +487,3 @@ class Game extends Component {
     }
 }
 export default Game
-            //   {this.renderChoice('X')}
-        // <div className="game--info">
-        //   <p className="possible" value={this.state.possible}>{this.state.possible}</p>
-        // </div>

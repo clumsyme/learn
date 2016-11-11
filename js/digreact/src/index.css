@@ -1,15 +1,11 @@
-html {
-  height: 100%;
-}
 body {
-  margin: 0;
-  padding: 2em 0 0;
-  height: 100%;
-  min-width: 375px;
-  overflow: hidden;
-  font: 12px 'Tempus Sans ITC';
-  background:#000000 url(board.jpg) repeat;
-  user-select: none
+    margin: 0;
+    padding: 2em 0 0;
+    min-width: 375px;
+    overflow: auto;
+    font: 12px 'Microsoft YaHei', 'Lucida Grande', Helvetica, Arial, sans-serif;
+    background: url(media/board.jpg) repeat;
+    user-select: none
 }
 
 .logo {
@@ -29,6 +25,7 @@ body {
     height: 36vw;
     min-height: 270px;
 }
+/*board*/
 .board {
     position: absolute;
     left: 14%;
@@ -36,10 +33,6 @@ body {
     display: inline-block;
     width: 72%;
     height: 100%;
-    /*min-width: 288px;
-    min-height: 288px;*/
-    /*min-width: 15em;
-    min-height: 15em;*/
 }
 .row {
     border-bottom: 1px dashed rgba(197,229,218,0.55);
@@ -65,7 +58,7 @@ button:focus {
     height: 100%;
     float: left;
     background: rgba(0, 0, 0, 0);
-    font: 2em 'Tempus Sans ITC';
+    font-size: 2em;
     color: #4285f4;
     padding: 0;
     border-width:0 1px 0 0;
@@ -79,6 +72,8 @@ button:focus {
 .square:nth-child(1) {
     border-left: 2px solid rgba(251, 255, 254, 0.8);
 }
+
+/*choices*/
 .choices {
     position: relative;
     margin: 0 auto;
@@ -93,15 +88,15 @@ button:focus {
     width: 11.111%;
     height: 100%;
     display: inline-block;
-    font-family: 'Tempus Sans ITC';
     background: rgba(0, 0, 0, 0.2);
-    /*font-weight: 800;*/
     font-size: 1.5em;
     color: #4285f4;
     border: 1px dashed rgba(251, 255, 254, 0.8);
     border-radius: 50%;
     cursor: pointer;
 }
+
+/*level control*/
 .controls {
     height: 2em;
     margin: 0 0 2em;
@@ -110,7 +105,7 @@ button:focus {
     text-align: center;
     line-height: 2em;
 }
-.degree {
+.level {
     display: inline-block;
     padding: 0.5em 0.5em;
     font-size: 1.2em;
@@ -119,6 +114,8 @@ button:focus {
     border-radius: 50%;
     cursor: pointer;
 }
+
+/*both side*/
 .left, .right {
     position: absolute;
     width: 14%;
@@ -129,11 +126,12 @@ button:focus {
 }
 .check, .solve, .hint, .delete {
     position: absolute;
-    border: 1px dotted #FFF;
+    border: 0;
+    /*border: 1px dotted #FFF;*/
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.2);
-    color: #fbbc05;
-    cursor: pointer
+    background: rgba(0, 0, 0, 0.3);
+    color: #cdd1d0;
+    cursor: pointer;
 }
 .check, .hint {
     bottom: 0;
@@ -141,6 +139,11 @@ button:focus {
     height: 19.44%;
     font-size: 1.5em;
 }
+/*.check {
+    background: url(media/bulb.png) no-repeat;
+    background-size: 60% 60%;
+    background-position: 50% 50%
+}*/
 .checktext {
     position: absolute;
     top: 40%;
@@ -153,11 +156,11 @@ button:focus {
     color: #fbbc05;
     filter: blur(12px)
 }
-
 .solve, .delete {
     width: 50%;
     height: 9.72%;
-    background: rgba(0, 0, 0, 0.6)
+    bottom: 18.61%;
+    background: rgba(0, 0, 0, 0.3)
 }
 .solve {
     left: 0;
@@ -166,6 +169,7 @@ button:focus {
     right: 0;
 }
 
+/*for phone or some screen*/
 @media screen and (max-aspect-ratio: 5/3) {
     .main {
         width: 70%;
@@ -179,7 +183,6 @@ button:focus {
         left: 3%
     }
 }
-
 @media screen and (max-aspect-ratio: 1/1) {
     .logo {
         position: relative;
@@ -188,8 +191,91 @@ button:focus {
         width: 20%;
         height: 9vw;
         display: block;
-        /*margin: 0 auto;*/
         transform: rotate(0deg);
         opacity:0.4;
     }
+}
+
+/*info block*/
+.info {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+    width: 9%;
+    height: 18vw
+}
+.shares, .about ,.code{
+    position: absolute;
+    width: 100%;
+    height: 33.333%
+}
+.showshare {
+    width: 33.33%;
+    height: 50%;
+    margin: 0 auto 0;
+    left: 33.33%;
+    background: url(media/share.png);
+    background-size: 100% 100%;
+    cursor: pointer
+}
+
+.showshare:hover + .sharegroup {
+    animation: fadein 0.7s;
+    display: block;
+}
+@keyframes fadein {
+    from {opacity: 0};
+    to {opacity: 100}
+}
+.sharegroup {
+    width: 100%;
+    height: 50%;
+    display: none
+}
+.sharegroup:hover {
+    width: 100%;
+    height: 50%;
+    display: block
+}
+.shareimg {
+    width: 33.33%;
+    height: 100%;
+    float: left;
+    opacity:1;
+}
+.about {
+    top: 33.33%
+}
+.showabout {
+    width: 33.33%;
+    height: 50%;
+    margin: 2em auto 0;
+    background: url(media/info.png);
+    background-size: 100% 100%;
+    cursor: pointer
+}
+.showabout:hover + .aboutme {
+    animation: fadein 0.5s;
+    display: block;
+}
+.aboutme {
+    position: fixed;
+    top: 8%;
+    left: 25%;
+    width: 46%;
+    background: #FFF;
+    padding: 2%;
+    display: none
+}
+.aboutlogo {
+    width: 15%
+}
+.code {
+    top: 85%;
+    left: 33.33%;
+    width: 33.33%;
+    height: 11.11%;
+    background: url(media/code.png);
+    background-size: 100% 100%;
+    cursor: pointer
 }
