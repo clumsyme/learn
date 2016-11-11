@@ -1,5 +1,7 @@
+// 生成函数参数有误！
+
 import React, { Component } from 'react';
-import sudokus from './Sudokus'
+import sudokus from './Sd'
 import SudokuGenerator from './SudokuGenerator'
 import logo from './logo.png'
 class Square extends Component {
@@ -122,14 +124,12 @@ class Game extends Component {
         }
         this.styles = {
             highlight: {
-                transition: 'background-color 0.2s',
+                // transition: 'transform background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
-                // border: '1px solid #fbbc05',
-                // margin: '-1px'
-                // color: '#00FF00',
+                animation: 'highlight 2s'
             },
             filter: {
-                transition: 'background-color 0.2s',
+                // transition: 'background-color 0.2s',
                 // transition: 'transform 1s ease',
                 // transform: 'rotate(1turn)',
                 boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.8)',
@@ -137,7 +137,7 @@ class Game extends Component {
                 color: '#4285f4',
             },
             chosen: {
-                transition: 'background-color 0.2s',
+                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(155, 204, 20, 0.3)',
                 // boxShadow: '3px 3px 3px 3px rgba(0, 0, 0, 0.8)',
                 // color: '#fbbc05',
@@ -147,14 +147,14 @@ class Game extends Component {
                 color: '#ea4335'
             },
             originHighlight: {
-                transition: 'background-color 0.2s',
+                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(52, 168, 83, 0.2)',
                 // border: '1px solid #fbbc05',
                 // margin: '-1px',
                 color: '#ea4335'
             },
             originFilter: {
-                transition: 'background-color 0.2s',
+                // transition: 'background-color 0.2s',
                 backgroundColor: 'rgba(255, 13, 126, 0.2)',
                 // boxShadow: '3px 3px 1px rgba(0, 0, 0, 0.9)',
                 color: '#ea4335'
@@ -490,7 +490,7 @@ class Game extends Component {
             this.highlight(i, j)
             chosen = [i, j]
             var possible = this.checkPossible(i, j).toString()
-            console.log(possible)
+            // console.log(possible)
             this.setState({
                 chosen: chosen,
                 possible: possible,
@@ -505,6 +505,13 @@ class Game extends Component {
             this.filter('' + i)
         } else {
             var values = this.state.values.slice()
+            if ('' + i !== this.state.solution[chosen[0]][chosen[1]]) {
+                this.setState({
+                    chosen: null,
+                    highlight: new Set()
+                })
+                return
+            }
             if (i === 'x') {
                 values[chosen[0]][chosen[1]] = null
             } else {
@@ -517,32 +524,27 @@ class Game extends Component {
                     // chosen: null
                 }
             )
-            console.log('v-----' + values.toString())
-            console.log('s-----' + this.state.solution.toString())
             if (values.toString() === this.state.solution.toString()) {
                 alert('恭喜你，完成了这个难题！')
             }
         }
     }
-    renderChoice(i) {
-        return <Square className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
-    }
+    // renderChoice(i) {
+    //     return <Square className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
+    // }
     renderControl(value) {
-        let controlStyle
-        console.log(this.state.degree + '-' + value)
-        if (value === this.state.degree) {
-            controlStyle = this.styles.control
-        }
+        var controlStyle = value === this.state.degree?this.styles.control:undefined
         return <Control style={controlStyle} className="degree" value={value} onClick={() => this.generate(value)} />
     }
     render() {
-        if (this.state.peep) {
-            var peepStyle = this.styles.peep
-        }
-        if (this.state.check) {
-            var checkStyle = this.styles.check
-        }
+        var peepStyle = this.state.peep?this.styles.peep:undefined
+        var checkStyle = this.state.check?this.styles.check:undefined
         var hintStyle = this.styles.hint[2 - this.state.helps]
+        var choices = ['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(
+            (i) => {
+                return <Square key={i} className="choice" value={i} onClick={() => this.handleNumsClick(i)} />
+            }
+        )
         return (
             <div className="game">
                 <img className="logo" alt="playSudoku" src={logo} />
@@ -575,15 +577,7 @@ class Game extends Component {
                     </div>
                 </div>
                 <ul className="choices">
-                    {this.renderChoice(1)}
-                    {this.renderChoice(2)}
-                    {this.renderChoice(3)}
-                    {this.renderChoice(4)}
-                    {this.renderChoice(5)}
-                    {this.renderChoice(6)}
-                    {this.renderChoice(7)}
-                    {this.renderChoice(8)}
-                    {this.renderChoice(9)}
+                    {choices}
                 </ul>
             </div>
         );
