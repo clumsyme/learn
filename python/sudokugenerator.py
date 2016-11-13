@@ -4,7 +4,8 @@ Given a pattern, generate a valid solved sudoku.
 import re
 import random
 
-pattern = 'E8FC2GDIA7B1ID5C6HID3FH1GB5A547I6HCBHGBA3DIEFCFI2E817D2CE8AI6DGD1G5FC2H9FIHD7BE1C'
+
+EXTRME = 'AD53BGFIH8CIFEDA2GF7BI1H5DC4IFAH53GBB1HD7CIE6GE32IFD8AC6G5DBHA9IH4GFAB3EEBAHC97FD'
 class Sudoku:
     def __init__(self, pattern):
         self.pattern = pattern
@@ -20,7 +21,7 @@ class Sudoku:
         dicd = dict(zip(list('123456789'), nums))
         dicw = dict(zip(list('ABCDEFGHI'), chars))
         tempattern = ''
-        for c in pattern:
+        for c in self.pattern:
             if c in dicd:
                 tempattern += dicd[c]
             else:
@@ -62,4 +63,9 @@ class Sudoku:
             solve = solve.replace(c, dicn[c])
         return sudoku, solve
 
-
+sd = Sudoku(EXTRME)
+sudoku = sd.generate()
+puzzle = sudoku[0]
+solution = sudoku[1]
+print(puzzle)
+print(solution)
