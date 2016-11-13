@@ -114,8 +114,8 @@ class Control extends Component {
 class Game extends Component {
     constructor(props) {
         super(props)
-        var random = Math.floor(Math.random() * 8),
-            grid = sudokus.easy[random],
+        var random = Math.floor(Math.random() * 8)
+        var grid = sudokus.hell[0],
             sudoku = new SudokuGenerator(grid).generate(),
             puzzle = sudoku[0]
         this.solution = sudoku[1]
@@ -191,7 +191,7 @@ class Game extends Component {
         }
         this.state = {
             values: puzzle,
-            level: '简单',
+            level: '困难',
             origin: origin,
             peep: false,
             possible: null,
@@ -239,7 +239,6 @@ class Game extends Component {
         }
         this.setState({
             values: puzzle,
-            solution: solution,
             level: level,
             peep: false,
             origin: origin,
@@ -354,12 +353,10 @@ class Game extends Component {
         if (!r) {
             return
         } else {
-            var values = this.state.values,
-                solution = this.solution,
+            var solution = this.solution,
                 peep = this.state.peep
             this.setState({
                 values: solution,
-                solution: values,
                 peep: !peep
             })
         }
@@ -430,8 +427,7 @@ class Game extends Component {
                 this.setState({
                     peep: true
                 })
-            }
-            
+            }    
         }
     }
     renderControl(value) {
