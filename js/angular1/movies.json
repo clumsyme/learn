@@ -1,0 +1,12 @@
+{
+    "movies": [
+        {
+            "name": "Star Wars",
+            "score": 10
+        },
+        {
+            "name": "Lord of the rings",
+            "score": 10
+        }
+    ]
+}

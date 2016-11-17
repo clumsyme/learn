@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular Example</title>
+    <style>
+        input.ng-invalid {
+            background: pink
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px dashed grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tr.tableheader {
+            background-color: #0f0f0f 
+        }
+    </style>
+    <script type="text/javascript" src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+    <h1>Angular Examples</h1>
+    <hr>
+    <div ng-app="app" ng-controller="capp">
+        <div ng-app ng-init="greet='Hello: '">
+            <h2>双向绑定</h2>
+            <p>Please input: <input type="text" ng-model="name" placeholder="your name"></p>
+            <h3>{{greet}} {{name}}</h3>
+        </div>
+        <hr>
+        <div>
+            <h2>直接运行表达式</h2>
+            <label>单价</label>
+            <input type="number" ng-model="price">
+            <label>数量</label>
+            <input type="number" ng-model="count">
+            <p>总价为：{{ price * count | currency }}</p>
+            <p ng-hide="price * count < 100"><b>Well done</b></p>
+        </div>
+        <hr>
+        <div>
+            <h2>重复元素 & 方法。</h2>
+            <input type="number" ng-model="fn">
+            <ol>
+                <li ng-repeat="num in nums()">{{num}}</li>
+            </ol>
+        </div>
+        <hr>
+        <div>
+            <h2>验证输入 & 状态。</h2>
+            <form name="form">
+                <span>Email:</span>
+                <p>{{email}}</p>
+                <input type="email" name="myemail" ng-model="email" required>
+                <span ng-show="form.myemail.$error.email">邮件地址不合法。</span>
+                <p>状态valid：{{form.myemail.$valid}}
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h2>过滤器</h2>
+            <input ng-model="firstname">
+            <p>Hello, {{firstname | uppercase}}</p>
+        </div>
+        <hr>
+        <div>
+            <h2>服务</h2>
+            <p>页面Url为：{{rootUrl}}</p>
+            <h3>将在{{countdown}}秒hour显示: {{message}}</h3>
+        </div>
+        <hr>
+        <div>
+            <h2>XHR</h2>
+            <ol>
+                <li ng-repeat="movie in movies">
+                    {{movie.name}}: {{movie.score}}
+                </li>
+            </ol>
+        </div>
+        <hr>
+        <div>
+            <h2>选择框</h2>
+            <select ng-model="selected" ng-options="fruit for fruit in fruits"></select>
+            <select ng-model="s2"><option ng-repeat="fruit in fruits">{{fruit}}</option></select>
+            <p>selected: {{selected}} + {{s2}}</p>
+            <select ng-model="selectedPlayer" ng-options="player.name for player in players"></select>
+            <p>You select player {{selectedPlayer.name}}<br> position is {{selectedPlayer.position}}<br> got {{selectedPlayer.score}}
+                </p>
+        </div>
+        <hr>
+        <div>
+            <h2>表格</h2>
+            <table>
+                <tr class="tableheader">
+                    <td ng-if="seeindex">Index</td>
+                    <td>Name</td>
+                    <td>Position</td>
+                    <td>Score</td>
+                </tr>
+                <tr ng-repeat="player in players | orderBy: 'position'">
+                    <td ng-if="seeindex">{{$index + 1}}</td>
+                    <td>{{player.name | uppercase}}</td>
+                    <td>{{player.position}}</td>
+                    <td>{{player.score}}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <h2>Dom属性</h2>
+            <button ng-disabled="cantuse" ng-click="disableit()">ClickMe</button>
+            <button ng-show="showenable" ng-click="enableit()">Make it work</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="angularapp.js"></script>
+</body>
+</html>
