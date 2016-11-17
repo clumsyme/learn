@@ -17,13 +17,16 @@ app.controller('capp', function ($scope, $location, $timeout, $interval, $http) 
     $scope.countdown = 5
     $scope.seeindex = true
     $scope.fruits = ['apple', 'banana', 'orange']
+    $scope.clickme = 'ClickMe'
     $scope.disableit = function() {
         $scope.cantuse = true
         $scope.showenable = true
+        $scope.clickme = 'Now you cant'
     }
     $scope.enableit = function() {
         $scope.cantuse = false
         $scope.showenable = false
+        $scope.clickme = 'ClickMe'
     }
     $scope.players = [
         {
