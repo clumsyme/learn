@@ -1,0 +1,206 @@
+<html>
+
+<head>
+    <title>VueJs App</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p :title='title'>{{ message }}</p>
+    </div>
+    <div id="app2">
+        <p v-if="seen" @click="goaway">Now you see me.</p>
+    </div>
+    <div id="app3">
+        <ol>
+            <h3>{{title}}</h3>
+            <input v-model="count">
+            <li v-for="num in nums">
+                {{num}}
+            </li>
+        </ol>
+    </div>
+    <div id="app4">
+        <p>{{message}}</p>
+        <p>{{this.message.split('').reverse().join('')}}</p>
+        <p>{{length}}
+        <button v-on:click="reverseMessage" v-bind:disabled="cantuse">Reverse</button>
+    </div>
+    <div id="app5">
+        <p>{{message | upper}}</p>
+        <p>你好啊 {{abbr}}</p>
+        <input v-model="message">
+    </div>
+    <div id="app6">
+        <ul>
+            <todo-item v-for="item in list" v-bind:todo="item">
+            </todo-item>
+        </ul>
+    </div>
+    <div id="app7">
+        <button class="addnew" 
+                v-bind:class="classes"
+                v-bind:style="style"
+                @click="clicking">ClickMe</button>
+        <p v-if="gtfive">You have at least 5 now</p>
+        <p v-else>Go on</p>
+        <ul v-if="!!dates.length">
+            <li v-for="date in dates">
+                You clicked the button at time '{{date}}'
+            </li>
+        </ul>
+    </div>
+    <div id="app8">
+        <p>{{checked}}</p>
+        <input type="checkbox" id="checkbox" value="Hello" v-model="checked" >
+        <label for="checkbox">Hello</label>
+        <input type="checkbox" id="checkbox2" value="World" v-model="checked" >
+        <label for="checkbox2">World</label>
+    </div>
+    <script type="text/javascript">
+        // 最简单的一个Vue应用。
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
+                title:'what???'
+            }
+        })
+        // 点击之后改变状态变为不可见。#methods
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                seen: true
+            },
+            methods: {
+                goaway: function() {
+                    this.seen = !this.seen
+                }
+            }
+        })
+        // 输入数字n显示菲波那切数列的前n项。#computed
+        function fbn(n) {
+            var nums = [];
+            var a = b = 1;
+            for (let i = 0; i < n; i++) {
+                [a, b] = [b, a+b];
+                nums.push(a);
+            }
+            return nums
+        }
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                title: '菲波那切数列',
+                count: 3
+            },
+            computed: {
+                nums: function() {
+                    return fbn(this.count)
+                }
+            }
+        })
+        // 点击按钮翻转message并将按钮置为不可用。#methods & commputed.
+        var app4 = new Vue({
+            el: '#app4',
+            data: {
+                message: 'Halo Wold',
+                cantuse: false
+            },
+            methods: {
+                reverseMessage: function() {
+                    this.message = this.message.split('').reverse().join('')
+                    this.cantuse = !this.cantuse
+                }
+            },
+            computed: {
+                length: function() {
+                    return this.message.length
+                }
+            }
+        })
+        // filters 处理数据。 #filters
+        var app5 = new Vue({
+            el: '#app5',
+            data: {
+                message: 'Halo Wold'
+            },
+            filters: {
+                upper: function(value) {
+                    value = value.toString()
+                    return value.toUpperCase()
+                }
+            },
+            computed: {
+                abbr: function() {
+                    return this.message.split(' ')[0][0] + this.message.split(' ')[1][0]
+                }
+            }
+        })
+        // 列表渲染。 #v-for
+        Vue.component('todo-item',{
+            props:['todo'],
+            template:'<li>{{todo.text}}</li>'
+        })
+        var app6 = new Vue ({
+            el: '#app6',
+            data:{
+                list: [
+                    {text: 'hello'},
+                    {text: 'world'},
+                    {text: 'see'},
+                    {text: 'U'}
+                ]
+            }
+        })
+        // 无dom。
+        var vm = new Vue({
+            data: {
+                a: 1
+            },
+            created: function() {
+                console.log('a is: ' + this.a)
+            }
+        })
+        // 绑定inline style并根据状态更新类名。#v-bind:class
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                dates: [],
+                style: {
+                    width: '100px',
+                    height: '30px',
+                    background: 'rgba(0, 0, 0, 0.1)',
+                    borderRadius: '50%',
+                    color: 'black'
+                }
+            },
+            methods: {
+                clicking: function() {
+                    this.dates.push(new Date().toLocaleTimeString())
+                }
+            },
+            computed: {
+                classes: function(){
+                    return({
+                        clicked: !!this.dates.length,
+                        gtthree: this.dates.length >= 3
+                    })
+                },
+                gtfive: function() {
+                    return this.dates.length >= 5
+                }
+            }
+        })
+        var app8 = new Vue({
+            el: '#app8',
+            data: {
+                checked: []
+            }
+        })
+        
+    </script>
+</body>
+
+</html>
