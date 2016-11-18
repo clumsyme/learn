@@ -8,11 +8,15 @@ function fbn(n) {
     return nums
 }
 
-var app = angular.module('app', [])
-app.controller('capp', function ($scope, $location, $timeout, $interval, $http) {
+var myapp = angular.module('app', [])
+myapp.controller('capp', function ($scope, $location, $timeout, $interval, $http) {
     $scope.price = 0
     $scope.count = 0
     $scope.fn = 3
+    $scope.firstname = "World"
+    // 此处如果使用$scope.lfirstname = angular.lowercase($scope.firstname)， 为一次绑定
+    // lfirstname不会随firstname改变， 类似Vue中的方法/computed。
+    $scope.lfirstname = function() { return angular.lowercase($scope.firstname)}
     $scope.rootUrl = $location.absUrl()
     $scope.countdown = 5
     $scope.seeindex = true
