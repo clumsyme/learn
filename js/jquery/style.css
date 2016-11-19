@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 50px;
+    background-color: #f0f0f0
+}
+code, pre {
+    background-color: #b3e3e3;
+    font-family: monospace;
+    padding: 0 0.2em;
+    margin: 0;
+    word-wrap: normal;
+    display: inline
+}
+.left, .right {
+    width: 50%;
+    height: 100%;
+    overflow: scroll;
+    float: left
+}

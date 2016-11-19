@@ -1,0 +1,176 @@
+<html>
+
+<head>
+    <title>jquery Examples</title>
+    <script type="text/javascript" src="jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="left">
+        <h1>jQuery 要素</h1>
+        <hr>
+        <div id="attr">
+            <h2>jQuery Attr</h2>
+            <p>使用
+                <code>$('h2').attr('title', 'example title')</code> 自动为所有 h2 标签添加属性。
+            </p>
+        </div>
+        <hr>
+        <div id="selector">
+            <h2>jQuery选择器</h2>
+            <ul>
+                <li class="empty"></li>
+                <li>按ID选择<code>$('myid')</code></li>
+                <li>按类名选择<code>$('.myclass')</code></li>
+                <li>按属性选择<code>$("input[name='submit']")</code></li>
+                <li id="ww">组合CSS选择<code>$('#contents ul.people li')</code></li>
+                <li>用逗号分隔选择 <code>$('div.class, ul.people')</code></li>
+                <li>伪类选择 <code>"$(a.external:first')---$('tr:odd')---$('#myform:input')"</code></li>
+                <li>查看是否选中元素 <code>if ($('div.foo').length) {...}</code></li>
+                <li>若需重复选择 <code>var divs = $('div')</code></li>
+                <li>精准选择 <code>$('div').has('p')</code> <code>$('h1').not('bar')</code>
+                    <code>$( "ul li" ).filter( ".current" )</code>
+                    <code>$( "ul li" ).first()</code>
+                    <code>$( "ul li" ).eq( 5 ) //第六个</code>
+                </li>
+                <li class="empty" id="lastli"></li>
+                <li></li>
+            </ul>
+        </div>
+        <hr>
+        <div id="useSelector">
+            <h2>使用选择器</h2>
+            <p class="hello"></p>
+        </div>
+        <hr>
+        <div id="manuEle">
+            <h2>修改元素</h2>
+            <p>查看元素属性<code>.html()  .attr()  .width()  .height()  .position()  .val()</code></p>
+            <h3>移动元素</h3>
+            <p><code>.insertAfter()</code>方法将选中元素插入到参数元素后。</p>
+            <p><code>.after()</code>方法将参数元素插入到选中元素后。</p>
+            <code>.insertBefore() .before(), .appendTo() .append(), .prependTo() .prepend()</code>
+            <h3>复制元素</h3>
+            <p>上述方法直接移动了元素，有时候我们只是需要一个副本。</p>
+            <code>$('myelement').clone().appendTo('otherelement')</code>
+            <h3>移除元素</h3>
+            <p><code>.remove()</code>永久移除元素，返回元素并删除所有数据与属性。</p>
+            <p><code>.detach()</code>删除元素，返回元素并保留数据与属性。</p>
+            <p><code>.empty()</code>清空元素内部html。</p>
+            <h3>新建元素</h3>
+            <code>var myElement = $('element')</code>
+            <br>
+            <code>$('ul').append('element')</code>
+            <h3>修改属性</h3>
+            <code>$( "#myDiv a:first" ).attr({
+                        href: "newDestination.html",
+                        rel: "nofollow"
+                        })
+                </code>
+        </div>
+        <hr>
+        <div id="jQueryObject">
+            <h2>jQuery 对象</h2>
+            <p>DOM对象它有属性如<code>.tagName</code>，它有方法如<code>.appendChild()</code>。</p>
+            <p>jQuery对象考虑了浏览器兼容性，如<code>target.innerHTML = ...</code>可能在IE中无法正常工作。
+                <br>DOM对象-->jQuery对象：<code>$(target)</code>。<br>统一使用<code>$(target).html('...')</code>则解决了这个问题。</p>
+            <p>又如在某一元素之后插入元素。JSDOM操作<code>target.parentNode.insertBefore(new, target)</code> 使用jQuery：
+                <code>$(target).after(new)</code></p>
+            <p>使用jQuery选中/创建的为jQuery对象，<code>var hs = $('h1')</code>将选中所有h1元素。 使用
+                <code>hs.length</code>可查看元素个数。</p>
+            <p><code>var h = $('h1').eq(0)</code>返回首个h1 jQuery元素。<br> 和
+                <code>var h = $('h1')[0]</code>等效。<br>
+                <code>var h = $('h1').get(0)则返回一个DOM对象。</code>
+            </p>
+            <p style="color: red">jQuery对象并不动态反映文档结构，<code>$('p')</code>并不会在添加p元素后自动更新， 也就是说一旦创建其数据就确定了，除非重新选择。
+            </p>
+        </div>
+        <hr>
+        <div id="traversing">
+            <h2>父、子、兄弟</h2>
+            <p> <code>$( "span.subchild" ).parent();</code>选中其直接父元素。</p>
+            <p> <code>$( "span.subchild" ).parents( "div.parent" )</code>选中所有符合要求的父元素。</p>
+            <p> <code>$( "span.subchild" ).parentsUntil( "div.grandparent" );</code>返回所有不符合要求的父元素。</p>
+            <p> <code>$( "span.subchild" ).closest( "div" )</code>返回最接近的一个父元素。但是注意该元素本身也在搜索范围内。</p>
+            <p> <code>$( "div.grandparent" ).children( "div" )</code>返回所有符合要求的直接子元素。</p>
+            <p> <code>$( "div.grandparent" ).find( "div" )</code>返回所有符合要求的后代元素。</p>
+            <p>兄弟元素选择<code>$( "div" ).next()</code> <code>$( "div" ).prev()</code> <code>$( "div" ).nextAll()</code>
+                <code>$( "div" ).prevAll()</code> <code>$( "div" ).nextAll().last()</code></p>
+        </div>
+        <hr>
+        <div id="style">
+            <h2>CSS, Style与维度。</h2>
+            <code>$( "h1" ).css( "fontSize", "100px" )</code>
+            <h3>添加类从而由CSS文件控制外观。</h3>
+            <code>$( "h1" ).addClass( "big" )</code><br>
+            <code>$( "h1" ).removeClass( "big" )</code><br>
+            <code>$( "h1" ).toggleClass( "big" )</code><br>
+            <code>if ( h1.hasClass( "big" ) ) {...}</code><br>
+            <code>$( "h1" ).width( "50px" )</code><br>
+            <code>$( "h1" ).position()</code><br>
+        </div>
+        <hr>
+        <div id="datamethods">
+            <h2>数据方法。</h2>
+            <p>使用JavaScript，可将数据绑定到DOM对象上，但可能有内存泄漏问题。 使用jQuery可很容易的存储数据到jQuery对象。
+            </p>
+            <code>$( "#myDiv" ).data( "keyName", { foo: "bar" } )</code><br>
+            <code> $( "#myList li" ).each(function() { var li =
+            $( this ); var div = li.find( "div.content" ); li.data( "contentDiv", div ); })</code>
+        </div>
+        <hr>
+        <div id="methods">
+            <h2>通用方法</h2>
+            <p>
+                <code>$.trim('    hello there    ')</code>删除头&尾空格。<br>
+                <code>$.each([1,2,3], function(...))</code>迭代对象。<br>
+                <code>$.inArray(1, [1,2,3])</code>判断数组是否包含元素。<br>
+                <code>$.extend(fo, so)</code>更新fo，并返回更新后的对象。 类似python词典的update。<br>
+                <code>$.extend({}, fo, so)</code>将只返回更新后的对象而不改变原对象。<br>
+                <code>$.proxy( myf, myo )</code>将使myf的this指向myo， 类似bind的作用。<br>
+            </p>
+            <h3>类型判断</h3>
+            <p>
+                <code>$.isArray([])</code><br>
+                <code>$.isFunction(function() {})</code><br>
+                <code>$.isNumeric(1)</code><br>
+                <b>或者像python的type()方法一样。</b><br>
+                <code>$.type(1)</code><br>
+                <code>$.type(true)</code><br>
+                <code>$.type([])</code><br>
+        </div>
+        <hr>
+        <div id="iter">
+            <h2>迭代</h2>
+            <h3>$.each()</h3>
+            <code>$.each( arr, function( index, value ){ sum += value; });</code>
+            <h3>.each()</h3>
+            <p>.each直接作用于一个jQuery对象集。
+                <code>$('p').each(function( index, element ){ $(element).addClass('pclass'); });</code><br> 上述代码其实可以简化为
+                <code>$('p').addClass('pclass')</code><br> 但并不是每种元素都可如此简化。
+                <a target="_blank" href="https://learn.jquery.com/using-jquery-core/iterating/">有些</a> 必须要用
+                <code>.each</code>。
+            </p>
+            <h3><$.map()--注意value为第一个参数。*有点不一致</h3>
+            <code>$.map( arr, function( value, index ) {return value.id;})</code>
+            <h3>.map()</h3>
+            <code>$( "li" ).map( function(index, element) {return element.id;}).get()</code>
+        
+        </div>
+        <hr>
+        <div id="index">
+            <h3>index()方法</h3>
+            <p>
+                <code>$('#name').index()</code>返回id为name的对象的在其父元素中的索引。
+                <code>$('#name').index('div')</code>返回id为name的div的在所有div元素中的索引。 
+                <code>$('div').index($('#name'))</code>与上同，返回id为name的div的在所有div元素中的索引。 
+            </p>
+        </div>
+    </div>
+    <div class="right">
+    </div>
+    <script type="text/javascript" src="jq.js"></script>
+</body>
+
+</html>
