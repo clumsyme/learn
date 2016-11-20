@@ -49,6 +49,13 @@ myapp.controller('capp', function ($scope, $location, $timeout, $interval, $http
             score: 28
         }
     ]
+    $scope.ajaxRefresh = function() {
+        $http.get('movies.json').success(
+            function(response) {
+                $scope.movies = response.movies
+            }
+        )
+    }
     $interval(function() {
         $scope.countdown -= 1
     }, 1000)

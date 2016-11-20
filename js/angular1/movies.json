@@ -7,6 +7,14 @@
         {
             "name": "Lord of the rings",
             "score": 10
+        },
+        {
+            "name": "ToToRo",
+            "score": 10
+        },
+        {
+            "name": "Breaking Bad",
+            "score": "amazing"
         }
     ]
 }
