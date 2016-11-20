@@ -169,6 +169,50 @@
         </div>
     </div>
     <div class="right">
+        <h1>jQuery 事件处理</h1>
+        <div id="colors">
+            <div class="color" id="red"></div>
+            <div class="color" id="blue"></div>
+            <div class="color" id="green"></div>
+        </div>
+        <p id="cord">点击坐标：</p>
+        <hr>
+        <div id="evBasic">
+            <h2>基础事件-click</h2>
+            <p id="clickAlert">点击我。</p>
+            <p id="onOrClick">点击或mouseover。</p>
+            <p id="clickOnce">点击只能触发一次。</p>
+            <p id="hover">Hover可同时设置mouseenter和mouseleave</p>
+        </div>
+        <hr>
+        <div id="delegation">
+            <h2>Event Delegation</h2>
+            <div class="ps">
+                <p>1stp</p>
+                <p>2ndp</p>
+                <p>3rdp</p>
+                <span>a span没有用</span>
+            </div>
+        </div>
+        <hr>
+        <div id="trigger">
+            <h2>trigger</h2>
+            <p>在控制台输入<code>$jq('#trigger').trigger('click')</code></p>
+        </div>
+        <hr>
+        <div id="effect">
+            <h2>jQuery特效</h2>
+            <p id="clickHide">点我就消失。</p>
+            <div id="slide">slide</div>
+            <br>
+            <div id="fade">fade</div>
+            <br>
+            <span id="toggleit">toggle me</span>
+            <div id="toggle"></div>
+            <br>
+            <div id="delay">delay</div>
+            <code>jQuery.fx.speeds.fast = 300</code>可用于设置效果参数。
+            <div id="animate"></div>
     </div>
     <script type="text/javascript" src="jq.js"></script>
 </body>

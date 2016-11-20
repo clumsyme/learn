@@ -17,3 +17,48 @@ code, pre {
     overflow: scroll;
     float: left
 }
+div#colors {
+    width: 90px;
+    height: 30px;
+    margin: 0
+}
+div.color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+}
+div#red {
+    background-color: red;
+}
+div#blue {
+    background-color: blue;
+}
+div#green {
+    background-color: green;
+}
+div#slide {
+    width:100%;
+    height: 100px;
+    background: pink
+}
+div#fade {
+    width:100%;
+    height: 100px;
+    background: lime
+}
+div#toggle {
+    width:100%;
+    height: 100px;
+    background: wheat
+}
+div#delay {
+    width: 100%;
+    height: 100px;
+    background: olive
+}
+div#animate {
+    width: 30px;
+    height: 30px;
+    background: gold
+}
