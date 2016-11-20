@@ -36,6 +36,8 @@
         thead {
             background-color: #afafaf
         }
+        .fib {
+        }
     </style>
     <script type="text/javascript" src="angular.min.js"></script>
 </head>
@@ -53,17 +55,17 @@
         <div>
             <h2>直接运行表达式</h2>
             <label>单价</label>
-            <input type="number" ng-model="price">
+            <input min="0" type="number" ng-model="price">
             <label>数量</label>
-            <input type="number" ng-model="count">
+            <input min="0" type="number" ng-model="count">
             <p>总价为：{{ price * count | currency }}</p>
             <p ng-hide="price * count < 100"><b>Well done</b></p>
         </div>
         <hr>
         <div>
             <h2>重复元素 & 方法。</h2>
-            <input type="number" ng-model="fn">
-            <ol>
+            <input min=0 type="number" ng-model="fn">
+            <ol class="fib">
                 <li ng-repeat="num in nums()">{{num}}</li>
             </ol>
         </div>
