@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Css Examples</title>
+        <link type="text/css" rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1 lang="zh_CN">属性选择器</h1>
+        <h2> 以及计数器 </h2>
+        <h2>hello</h2>
+        <h1>相邻兄弟选择器</h1>
+        <div class="adjacent">
+            <p id="brother">I'm the brother with id 'brother'.</p>
+            <p>I'm the chosen one, chosen by `#brother + p`.</p>
+            <p>I'm not...</p>
+        </div>
+        <h1>兄弟选择器</h1>
+        <div class="sibling">
+            <p id="brother2">I'm the brother2 with id 'brother2'.</p>
+            <p>I'm the chosen one, chosen by `#brother ~ p`.</p>
+            <p>MeToo!</p>
+        </div>
+        <h1>子选择器</h1>
+        <div id="grandpa">
+            <div id="father">
+                <p id="child">I'm the child.</p>
+                <p>We are not chosen.</p>
+            </div>
+            <p>Chosen by `div#grandpa > p`</p>
+        </div>
+        <h1>后代选择器</h1>
+        <div id="grandpa2">
+            <div id="father2">
+                <p id="child2">I'm the child.</p>
+                <p>Me too.</p>
+            </div>
+            <p>We are all chosen by `div#grandpa  p`</p>
+        </div>
+        <h1>::first-letter伪元素</h1>
+        <p id="fl">Look at me~</p>
+        <h1>::selection伪元素</h1>
+        <p id="select">Select me to see what will happen.注意在Firefox中格式为`::-moz-selection`</p>
+        <h1>:active伪类</h1>
+        <p>这个链接在鼠标按下和松开的这段时间内会变成绿色: <a id="active" href="#active">Hit Me</a>.</p>
+        <h1>:disabled伪类</h1>
+        <button disabled>Can hit me</button>
+        <h1>:enabled伪类</h1>
+        <form>
+            <input type="number" min="0">
+            <input type="text">
+            <input type="submit">
+        </form>
+        <h1>:focus伪类</h1>
+        <form>
+            <input id="focus" type="text">
+        </form>
+        <h1>:hover & :not伪类</h1>
+        <div id="hover">一起旋转@</div>
+        <h1>:invalid伪类</h1>
+        <form>
+            <label for="invalid">Email</label>
+            <input id="invalid" type="email" required>
+        </form>
+        <h1>:link 与 :visited伪类</h1>
+        <p id="link">这个<a href="#link">链接</a>和别处的颜色不同</p>
+        <h1>CSS 渐变</h1>
+        <div class="gradients" id="gradients1">正常</div>
+        <div class="gradients" id="gradients2">从左到右</div>
+        <div class="gradients" id="gradients3">到右下角</div>
+        <div class="gradients" id="gradients4">任意角度</div>
+        <div class="gradients" id="gradients5">停止颜色</div>
+        <div class="gradients" id="gradients6">ColorStop</div>
+        <div class="gradients" id="gradients7">放射性渐变</div>
+        <div class="gradients" id="gradients8">重复渐变</div>
+        <div class="gradients" id="gradients9">重复放射性渐变</div>
+    </body>
+</html>
