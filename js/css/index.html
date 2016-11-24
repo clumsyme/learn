@@ -64,14 +64,92 @@
         <h1>:link 与 :visited伪类</h1>
         <p id="link">这个<a href="#link">链接</a>和别处的颜色不同</p>
         <h1>CSS 渐变</h1>
-        <div class="gradients" id="gradients1">正常</div>
-        <div class="gradients" id="gradients2">从左到右</div>
-        <div class="gradients" id="gradients3">到右下角</div>
-        <div class="gradients" id="gradients4">任意角度</div>
-        <div class="gradients" id="gradients5">停止颜色</div>
-        <div class="gradients" id="gradients6">ColorStop</div>
-        <div class="gradients" id="gradients7">放射性渐变</div>
-        <div class="gradients" id="gradients8">重复渐变</div>
-        <div class="gradients" id="gradients9">重复放射性渐变</div>
+        <div class="grad">
+            <p>给渐变div添加overflow解决子元素float导致的父元素没有高度</p>
+            <div class="gradients" id="gradients1">正常</div>
+            <div class="gradients" id="gradients2">从左到右</div>
+            <div class="gradients" id="gradients3">到右下角</div>
+            <div class="gradients" id="gradients4">任意角度</div>
+            <div class="gradients" id="gradients5">停止颜色</div>
+            <div class="gradients" id="gradients6">ColorStop</div>
+            <div class="gradients" id="gradients7">放射性渐变</div>
+            <div class="gradients" id="gradients8">重复渐变</div>
+            <div class="gradients" id="gradients9">重复放射性渐变</div>
+        </div>
+        <h1>CSS 布局</h1>
+        <h2>display</h2>
+        <p>div, p等为block，span为inline。下边的ul用CSS设置为display: inline。</p>
+        <ul class="display">
+            <li>block</li>
+            <li>inline</li>
+            <li>none</li>
+            <li>inlineblock</li>
+        </ul>
+        <div class="margin">
+            <p>设置width防止块元素自动充满整个宽度，设置max-width以适配小屏幕</p>
+            <p>设置margin: 0 auto使块元素水平居中</p>
+        </div>
+        <div class="borderbox">
+            <div class="borderbox1">未设置padding值，宽度即为width属性</div>
+            <div class="borderbox2">设置padding值，宽度还要加上padding值</div>
+            <div class="borderbox3">设置box-sizing: borderbox, width为元素宽度加上padding值</div>
+        </div>
+        <div class="position">
+            <p>需设置父级元素position(不为static)，才能使用子元素的absolute定位</p>
+            <div class="absolute">absolute相对于其第一个positioned的父级元素定位。</div>
+        </div>
+        <div class="float">
+            <img alt="img" class="mfimg"
+                src="https://img1.doubanio.com/view/photo/photo/public/p2173171108.jpg">
+            <p class="mfintro">女巫Gothel（唐纳·墨菲 Donna Murphy 配音）靠着一朵神奇的金色花朵保持青春。
+                王后重病，国王派人找到了这朵金花给王后治病，王后病愈，生下了一个一头金发的
+                小女孩Rapunzel（曼迪·摩尔 Mandy Moore 配音）。女巫失去金花，却发现小公
+                主的金发有 着同样的魔力，因此她偷走Rapunzel，把她关到森林中的一座没有楼
+                梯高塔之上。
+                十八年后，Rapunzel在女巫的抚养下长成一个拥有长长金发的美人，她越发渴望外面的
+                世界，女巫为了自己青春永驻，想方设法把Rapunzel留在身边。一天，窃贼Flynn（扎克
+                瑞·莱维 Zachary Levi 配音）盗取公主王冠后逃入森林，在好奇心趋势下登上了这座
+                神秘的高塔，误打误撞见到了塔中的长发公主。在Flynn的陪伴下，Rapunzel走下高塔，
+                开始了人生和爱情的大冒险。
+            </p>
+        </div>
+        <div class="inlineblocks">
+            <p>使用display:inline-block达到float效果(如果HTML源
+                代码中元素之间有空格，那么列与列之间会产生空隙)</p>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+            <div class="inlineblock"></div>
+        </div>
+        <div class="column">
+            <img id="moana" alt="moana" src="https://img3.doubanio.com/view/photo/photo/public/p2397923113.jpg">
+            <p>《摩瓦娜》由《小美人鱼》（The Little Mermaid）、《阿拉丁》（Aladdin）和《公主与青蛙》
+                （The Princess and the Frog）的导演John Musker和Ron Clement共同执导，是迪士尼
+                动画片厂的第57部动画长片，其女主角“摩瓦娜”是迪士尼首位波里尼西亚公主。 
+                波里尼西亚人是居住在南太平洋小岛上的民族，有着自己独特的风土文化、宗教艺术。
+                大约三千年前他们航行在广袤的南太平洋上，发现了大洋洲的很多岛屿，但一千年后他们突然中止了航行，
+                直到今天也没有人搞明白其中的原因。本片的灵感就是从这开始的。 
+                电影的故事发生在2000年前的南太平洋小岛上，那里居住着一个爱好航海的波里尼西亚人（Polynesian）部落，
+                部落酋长有一个独生女叫摩瓦娜·瓦里基（Moana Waialiki），在祖母的鼓励下她一心想去探索临近的岛屿，
+                但她的父亲不许。于是摩瓦娜就在祖母死后，偷偷划船溜出岛，去寻找传说中的岛屿。她有两位同行
+                的伙伴，一个是公鸡Hei，一个是猪Pua。 
+                摩瓦娜一行在一座小岛上搁浅了，这时一座图腾雕像Maui活了，他是南太平洋岛国神话里的超级英雄，
+                可以变成鸟儿，身上刻着很多可以活过来的纹身，还有一个法宝是魔法鱼钩。接下来摩阿娜就和他一起
+                前往开放的海洋、克服各种凶险，以完成祖先在一千年前未尽的航程。
+            </p>
+        </div>
+        <div class="flex">
+            <div class="flex1">我的最小像素为100</div>
+            <div class="flex2">我的像素总是200</div>
+            <div class="flex3">我占据剩余的2/9</div>
+            <div class="flex4">我占据剩余的3/9</div>
+            <div class="flex5">我占据剩余的4/9</div>
+        </div>
+        <div class="flexcenter">
+            <div class="center">有了flex，总算可以居中了</div>
+        </div>
     </body>
 </html>
