@@ -124,8 +124,8 @@ element.onclick = function(e) {
 //  global/window object (i.e. the default object in 
 //  non–strict mode where this isn't set by the call).
 
-// 最后箭头函数作为方法与普通匿名函数有所不同。即箭头函数并不自动bind，不产生自己的this
-// student例子中的箭头函数是在function匿名函数内部因此this有所制定
+// 最后箭头函数作为方法与普通匿名函数有所不同。箭头函数自动捕获上下文的this作为自己的this
+// student例子中的箭头函数是在student匿名function方法内部因此this即student
 var pig = {
     name: 'Piggy',
     say: function() {
@@ -135,3 +135,12 @@ var pig = {
 }
 pig.say() // Piggy Hengheng
 pig.walk() // Hello walking
+
+function Piggy() {
+    this.name = 'Piggy'
+    this.say = () => {
+        console.log(this.name)
+    }
+}
+var p = new Piggy()
+p.say() // Piggy
