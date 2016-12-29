@@ -36,16 +36,43 @@
         thead {
             background-color: #afafaf
         }
+        .colors {
+            width: 90px;
+            height: 30px;
+            margin: 0 auto
+        }
+        .color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            float: left
+        }
+        #green {
+            background: green
+        }
+        #orange {
+            background: orange
+        }
+        #red {
+            background: red
+        }
         .fib {
+            max-height: 200px;
+            overflow: auto
         }
     </style>
     <script type="text/javascript" src="angular.min.js"></script>
 </head>
 
-<body>
+<body class="main" ng-app="app" ng-controller="capp">
     <h1 style="text-align: center">Angular Examples</h1>
+    <div class="colors">
+        <div class="color" id="green" ng-click="changebk('green')"></div>
+        <div class="color" id="orange" ng-click="changebk('orange')"></div>
+        <div class="color" id="red" ng-click="changebk('red')"></div>
+    </div>
     <hr>
-    <div class="main" ng-app="app" ng-controller="capp">
+    <div>
         <div ng-app ng-init="greet='Hello: '">
             <h2>双向绑定</h2>
             <p>Please input: <input type="text" ng-model="name" placeholder="your name"></p>
@@ -149,7 +176,13 @@
             <h2>Include</h2>
             <div ng-include="'included.html'"></div>
         </div>
-        
+        <div>
+            <label for="c">摄氏度</label>
+            <input id="c" type="number" ng-model="ctemp" ng-change="ctempchange()">
+            <label for="f">华氏度</label>
+            <input id="f" type="number" ng-model="ftemp" ng-change="ftempchange()">
+            <p>在这个温度下，水是<b><span ng-if="boil()">会</span><span ng-if="!boil()">不会</span></b>烧开的</p>
+        </div>
     </div>
     <script type="text/javascript" src="angularapp.js"></script>
 </body>
