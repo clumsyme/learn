@@ -1,0 +1,205 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #222f38;
+}
+
+#yoda {
+    position: relative;
+    width: 770px;
+    height: 410px;
+}
+#yoda .ear {
+    position: absolute;
+    top: 35%;
+    width: 30%;
+    height: 33%;
+    background: #716e3b;
+}
+#yoda .ear.left {
+    left: 0;
+    border-radius: 10% 0 0 100%;
+}
+
+#yoda .ear.right {
+    right: 0;
+    border-radius: 0 10% 100% 0;
+}
+
+#yoda .earhole {
+    position: absolute;
+    top: 25%;
+    width: 75%;
+    height: 50%;
+    background: #404213;
+    /*border-radius: 10% 0 0 100%;*/
+}
+#yoda .earhole.left {
+    left: 10%;
+    border-radius: 10% 30% 0 100%;
+    transform: rotate(10deg);
+}
+#yoda .earhole.right {
+    right: 10%;
+    border-radius: 30% 10% 100% 0;
+    transform: rotate(-10deg);
+}
+
+#yoda .earhole.left {
+
+}
+/*#yoda #head {
+    position: absolute;
+    width: 46%;
+    left: 27%;
+    height: 100%;
+    border-radius: 50%;
+    background: orange;
+    opacity: 0.3;
+}*/
+#yoda #face {
+    position: absolute;
+    width: 46%;
+    left: 27%;
+    height: 90%;
+    border-radius: 50% 50% 35% 35%;
+    background: #716e3b;
+    /*opacity: 0.3;*/
+}
+#yoda #chin {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    height: 13%;
+    width: 20%;
+    border-bottom: 41px solid #716e3b;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+#yoda #eyes {
+    position: absolute;
+    left: 12.5%;
+    top: 55%;
+    width: 75%;
+    height: 10%;
+    animation: blink 2s infinite;
+    /*background: yellow;*/
+}
+
+#yoda .eye {
+    position: absolute;
+    height: 160%;
+    width: 22%;
+    border-radius: 100% 0 100% 0;
+    transform-origin: 50% 50%;
+    transform: rotate(45deg);
+    background: #e2e0c7;
+}
+#yoda .eye.left {
+    left: 5%;
+}
+#yoda .eye.right {
+    right: 5%;
+}
+
+#yoda .eye::before {
+    content: "";
+    display: block;
+    position: absolute;
+    
+    width: 130%;
+    height: 130%;
+    border-radius: 40%;
+}
+#yoda .eye.left::before {
+    left: -10%;
+    top: -35%;
+    border-top: 2px solid #404213;
+}
+#yoda .eye.right::before {
+    left: -35%;
+    top: -10%;
+    border-left: 2px solid #404213;
+}
+
+#yoda .eyeball {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 60%;
+    height: 60%;
+    background: black;
+    border-radius: 50%;
+    z-index: -1;
+}
+#yoda .eyeball::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 20%;
+    top: 5%;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background: #e2e0c7;
+}
+
+#yoda #mouth {
+    width: 38%;
+    height: 3%;
+    position: absolute;
+    left: 31%;
+    top: 88%;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    border-radius: 33%;
+}
+#yoda #mouth::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -22%;
+    top: -330%;
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;
+    border-top: 2px solid #404213;
+    transform: rotate(-45deg);
+    /*background: black;*/
+}
+#yoda #mouth::after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: -22%;
+    top: -330%;
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;
+    border-top: 2px solid #404213;
+    transform: rotate(45deg);
+    /*background: black;*/
+}
+
+#yoda #nose {
+    width: 15%;
+    height: 5%;
+    position: absolute;
+    border-radius: 50%;
+    border-bottom: 2px solid black;
+    /*border-top: none;*/
+    top: 67%;
+    left: 42.5%;
+    /*box-shadow: -100px 0 0 black;*/
+}
+@keyframes blink {
+    10% {
+        transform: rotateX(89deg)
+    }
+    20% {
+        transform: rotateX(0)
+    }
+}
