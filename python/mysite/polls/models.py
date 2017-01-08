@@ -21,3 +21,35 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class Place(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class University (models.Model):
+    name = models.CharField(max_length=50)
+    place = models.OneToOneField(
+        Place,
+        primary_key = True
+    )
+
+    def __str__(self):
+        return self.name
+
+class Student(models.Model):
+    university = models.ForeignKey(University)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Course(models.Model):
+    student = models.ManyToManyField(Student)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
