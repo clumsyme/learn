@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        title="Title of the web"
+    body
+        h1 There are #{users.length} users
+        ul
+            each user in users
+                li My name is #{user.name} and I am #{user.age} years old.
+
+        h1 斐波那契
+        ul
+            each i in [1,2,3,4,5,6,7,8,9]
+                li= i + ' : ' + fib(i)
+                
+        h1 杨辉三角
+        - var i = 0;
+        ul
+            while i < 10
+                li= yh(i++)
