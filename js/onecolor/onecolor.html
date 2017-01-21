@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Color</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #f5fffa;
+        }
+        #board {
+            position: relative;
+            width: 60vh;
+            height: 60vh;
+        }
+        #board:hover .current {
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle {
+            50% {transform: scale(1.1) rotate(1turn)}
+        }
+        #win, #lose {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            background: transparent;
+            width: 100%;
+            height: 100%;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 998;
+        }
+        #lose {
+            background: pink;
+        }
+        ul {
+            list-style: none;
+            display: block;
+            width: 100%;
+            height: 10%;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            width: 10%;
+            height: 100%;
+            border: none;
+            transition: background-color 0.15s;
+            display: inline-block
+        }
+        #buttons {
+            margin: 2em 0;
+        }
+        button {
+            width: 50px;
+            height: 30px;
+            cursor: pointer;
+            outline: none;
+        }  
+        #info {
+            font-size: 2em;
+            /*color: olive;*/
+            font-weight: 300;
+        }
+        .new {
+            font-size: 2em;
+        }
+        a {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="game">
+        <div id="info">剩余<span id="clicked"></span></div>
+        <div id="board" title="点击下方颜色按钮统一颜色">
+            <div id="win" onclick="newGame()">你赢了<br>点击重新开始<br><span class="new">&#x21bb</span></div>
+            <div id="lose" onclick="newGame()">你输了<br>点击重新开始<br><span class="new">&#x21bb</span></div>
+        </div>
+        <div id="buttons"></div>
+    </div>
+    <a target="_blank" href="/">@liyan</a>
+<script src="onecolor.js"></script>
+</body>
+</html>
