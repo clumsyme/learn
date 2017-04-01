@@ -12,7 +12,7 @@ def simpleMergeSort(lista, listb):
       result.append(lista.pop(0))
     else:
       result.append(listb.pop(0))
-  return result + a + b
+  return result + lista + listb
 
 from functools import reduce
 
