@@ -25,7 +25,7 @@
         <p>{{message}}</p>
         <p>{{this.message.split('').reverse().join('')}}</p>
         <p>{{length}}
-        <button v-on:click="reverseMessage" v-bind:disabled="cantuse">Reverse</button>
+            <button v-on:click="reverseMessage" v-bind:disabled="cantuse">Reverse</button>
     </div>
     <div id="app5">
         <p>{{message | upper}}</p>
@@ -39,10 +39,7 @@
         </ul>
     </div>
     <div id="app7">
-        <button class="addnew" 
-                v-bind:class="classes"
-                v-bind:style="style"
-                @click="clicking">ClickMe</button>
+        <button class="addnew" v-bind:class="classes" v-bind:style="style" @click="clicking">ClickMe</button>
         <p v-if="gtfive">You have at least 5 now</p>
         <p v-else>Go on</p>
         <ul v-if="!!dates.length">
@@ -53,18 +50,53 @@
     </div>
     <div id="app8">
         <p>{{checked}}</p>
-        <input type="checkbox" id="checkbox" value="Hello" v-model="checked" >
+        <input type="checkbox" id="checkbox" value="Hello" v-model="checked">
         <label for="checkbox">Hello</label>
-        <input type="checkbox" id="checkbox2" value="World" v-model="checked" >
+        <input type="checkbox" id="checkbox2" value="World" v-model="checked">
         <label for="checkbox2">World</label>
     </div>
+    <div id='twoCounter'>
+        <p>{{total}}</p>
+        <counter v-on:added='incre'></counter>
+        <counter v-on:added='incre'></counter>
+    </div>
     <script type="text/javascript">
+        Vue.component('counter', {
+            template: '<button v-on:click="add">{{ count }}</button>',
+            data: () => ({
+                count: 0
+            }),
+            /*===========================
+            注意methods内函数不应该使用箭头函数，
+            理由是————
+            
+                箭头函数绑定了父级作用域的上下文，所以 this 将不会按照期望指向 Vue 实例，this.count 将是 undefined。
+
+            ===========================*/
+            methods: {
+                add: function () {
+                    this.count++
+                    this.$emit('added')
+                }
+            }
+        })
+        var tc = new Vue({
+            el: '#twoCounter',
+            data: {
+                total: 0
+            },
+            methods: {
+                incre: function () {
+                    this.total++
+                }
+            }
+        })
         // 最简单的一个Vue应用。
         var app = new Vue({
             el: '#app',
             data: {
                 message: 'Hello Vue.js!',
-                title:'what???'
+                title: 'what???'
             }
         })
         // 点击之后改变状态变为不可见。#methods
@@ -74,7 +106,7 @@
                 seen: true
             },
             methods: {
-                goaway: function() {
+                goaway: function () {
                     this.seen = !this.seen
                 }
             }
@@ -84,7 +116,7 @@
             var nums = [];
             var a = b = 1;
             for (let i = 0; i < n; i++) {
-                [a, b] = [b, a+b];
+                [a, b] = [b, a + b];
                 nums.push(a);
             }
             return nums
@@ -96,7 +128,7 @@
                 count: 3
             },
             computed: {
-                nums: function() {
+                nums: function () {
                     return fbn(this.count)
                 }
             }
@@ -109,13 +141,13 @@
                 cantuse: false
             },
             methods: {
-                reverseMessage: function() {
+                reverseMessage: function () {
                     this.message = this.message.split('').reverse().join('')
                     this.cantuse = !this.cantuse
                 }
             },
             computed: {
-                length: function() {
+                length: function () {
                     return this.message.length
                 }
             }
@@ -127,30 +159,30 @@
                 message: 'Halo Wold'
             },
             filters: {
-                upper: function(value) {
+                upper: function (value) {
                     value = value.toString()
                     return value.toUpperCase()
                 }
             },
             computed: {
-                abbr: function() {
+                abbr: function () {
                     return this.message.split(' ')[0][0] + this.message.split(' ')[1][0]
                 }
             }
         })
         // 列表渲染。 #v-for
-        Vue.component('todo-item',{
-            props:['todo'],
-            template:'<li>{{todo.text}}</li>'
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
         })
-        var app6 = new Vue ({
+        var app6 = new Vue({
             el: '#app6',
-            data:{
+            data: {
                 list: [
-                    {text: 'hello'},
-                    {text: 'world'},
-                    {text: 'see'},
-                    {text: 'U'}
+                    { text: 'hello' },
+                    { text: 'world' },
+                    { text: 'see' },
+                    { text: 'U' }
                 ]
             }
         })
@@ -159,7 +191,7 @@
             data: {
                 a: 1
             },
-            created: function() {
+            created: function () {
                 console.log('a is: ' + this.a)
             }
         })
@@ -177,18 +209,18 @@
                 }
             },
             methods: {
-                clicking: function() {
+                clicking: function () {
                     this.dates.push(new Date().toLocaleTimeString())
                 }
             },
             computed: {
-                classes: function(){
-                    return({
+                classes: function () {
+                    return ({
                         clicked: !!this.dates.length,
                         gtthree: this.dates.length >= 3
                     })
                 },
-                gtfive: function() {
+                gtfive: function () {
                     return this.dates.length >= 5
                 }
             }
@@ -199,7 +231,6 @@
                 checked: []
             }
         })
-        
     </script>
 </body>
 
