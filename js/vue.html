@@ -60,7 +60,52 @@
         <counter v-on:added='incre'></counter>
         <counter v-on:added='incre'></counter>
     </div>
+    <div id='commu1'>
+        <button @click='clickit'>{{clicked}}</button>
+    </div>
+    <div id='commu2'>
+        <button @click='clickit'>{{clicked}}</button>
+    </div>
     <script type="text/javascript">
+        var bus = new Vue()
+        new Vue({
+            el: '#commu1',
+            data: {
+                clicked: 0
+            },
+            methods: {
+                clickit: function() {
+                    this.clicked++
+                    bus.$emit('button1Clicked')
+                }
+            }
+        })
+        new Vue({
+            el: '#commu2',
+            data: {
+                clicked: 0
+            },
+            mounted: function() {
+                /*===========================
+                非父子组件通信简单实现
+
+                    通过一个空的Vue实例作为事件总线
+                    在一个组件内注册事件
+                    在另一个组件内触发事件
+
+                    如果交互比较复杂，应该使用vuex
+
+                ===========================*/
+                bus.$on('button1Clicked', () => {
+                    this.clicked++
+                })
+            },
+            methods: {
+                clickit: function() {
+                    this.clicked++
+                }
+            }
+        })
         Vue.component('counter', {
             template: '<button v-on:click="add">{{ count }}</button>',
             data: () => ({
