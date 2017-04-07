@@ -66,6 +66,32 @@
     <div id='commu2'>
         <button @click='clickit'>{{clicked}}</button>
     </div>
+
+    <!--Vue Slot 插槽基础用法-->
+    <div id='slot'>
+        <h2>父组件标题</h2>
+        <child>
+            <!--这些内容是要插入到child组件的slot插槽内的
+            如果child组件没有子组件，插槽默认内容就会显示
+            -->
+            <p>这是要插入的内容</p>
+            <p>这也是</p>
+        </child>
+    </div>
+    <script>
+        Vue.component('child', {
+            template: '\
+                <div>\
+                    <h3>这是子组件的标题</h3>\
+                    <slot>如果没有内容，这些插槽内容就会显示</slot>\
+                </div>\
+            '
+        })
+        new Vue({
+            el: '#slot',
+
+        })
+    </script>
     <script type="text/javascript">
         var bus = new Vue()
         new Vue({
