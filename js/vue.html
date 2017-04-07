@@ -92,6 +92,42 @@
 
         })
     </script>
+
+    <!--具名插槽
+    基础插槽插入子组件到插槽内，
+    使用具名插槽可更准确的控制子组件插入到哪一个插槽内
+    -->
+    <div id='namedSlot'>
+        <h2>父组件标题</h2>
+        <child2>
+            <!--这些内容是要插入到child2组件的slot插槽内的
+            如果child2组件没有子组件，插槽默认内容就会显示
+
+            slot=‘header’的子组件会插入到child2的name为header的slot内
+            同理其他具名slot
+            没有指定slot属性的子组件将插入到未指定name的slot
+            -->
+            <h3 slot='header'>这将插入header slot</h3>
+            <p>这将插入无名slot</p>
+            <p slot='footer'>这将插入footer slot</p>
+        </child2>
+    </div>
+    <script>
+        Vue.component('child2', {
+            template: '\
+                <div>\
+                    <slot name="header">有header么？</slot>\
+                    <slot>如果没有内容，这些插槽内容就会显示</slot>\
+                    <slot name="main">有main么？</slot>\
+                    <slot name="footer">有footer么？</slot>\
+                </div>\
+            '
+        })
+        new Vue({
+            el: '#namedSlot',
+
+        })
+    </script>
     <script type="text/javascript">
         var bus = new Vue()
         new Vue({
