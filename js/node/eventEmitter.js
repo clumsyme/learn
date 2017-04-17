@@ -60,8 +60,10 @@ tom.on('smell', thing => {
 })
 
 tom.emit('smell', rb)
+// What the XXX is this,PEI
 
 tom.emit('smell', {})
+// I want to eat~~~~!
 
 tom.emit('smell', bone)
-
+// Tom likes eating wawawa
