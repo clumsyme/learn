@@ -33,3 +33,35 @@ console.log(i)
 // After add 9, i is 45
 // Said Hello
 // 45
+
+
+//  EXAMPLE 2
+
+class Dog extends events.EventEmitter { }
+
+class Food { }
+
+class Rubbish { }
+
+var tom = new Dog()
+
+var bone = new Food()
+
+var rb = new Rubbish()
+
+tom.on('smell', thing => {
+    if (thing instanceof Food) {
+        console.log('Tom likes eating wawawa')
+    } else if (thing instanceof Rubbish) {
+        console.log('What the XXX is this,PEI')
+    } else {
+        console.log('I want to eat~~~~!')
+    }
+})
+
+tom.emit('smell', rb)
+
+tom.emit('smell', {})
+
+tom.emit('smell', bone)
+
