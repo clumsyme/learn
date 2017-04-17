@@ -67,3 +67,15 @@ tom.emit('smell', {})
 
 tom.emit('smell', bone)
 // Tom likes eating wawawa
+
+// ONLY ONCE
+tom.once('bite', man => {
+    console.log('You should never do this again')
+})
+
+tom.emit('bite', 'JinSanPang')
+// You should never do this again
+tom.emit('bite', 'JinSanPang')
+// 
+tom.emit('bite', 'JinSanPang')
+// 
