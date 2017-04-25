@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <title>Css Variable</title>
+    <style>
+         :root {
+            /*注意属性名是大小写敏感的*/
+            --main-color: orange;
+            --secondary-color: green;
+            --backup-color: pink;
+            --small: 100px;
+            --middle: 200px;
+            --big: 300px;
+        }
+
+        /*可以为变量定义作用域*/
+        div {
+            --main-color: blue;
+            --secondary-color: var(--backup-color)
+        }
+        
+        .one {
+            width: var(--small);
+            height: var(--small);
+            background-color: var(--main-color)
+        }
+        
+        .two {
+            width: var(--middle);
+            height: var(--middle);
+            background-color: var(--secondary-color)
+        }
+        
+        .three {
+            width: var(--big);
+            height: var(--big);
+            background-color: var(--main-color)
+        }
+    </style>
+</head>
+
+<body>
+    <div class='one'></div>
+    <div class='two'></div>
+    <div class='three'></div>
+</body>
+
+</html>
