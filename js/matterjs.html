@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <title>Try matter.js</title>
+    <script src="matter.js"></script>
+</head>
+
+<body>
+    <script>
+        // 简写
+        var Engine = Matter.Engine,
+            Render = Matter.Render,
+            World = Matter.World,
+            Bodies = Matter.Bodies,
+            Composites = Matter.Composites,
+            Body = Matter.Body,
+            Constraint = Matter.Constraint,
+            MouseConstraint = Matter.MouseConstraint,
+            Common = Matter.Common,
+            Events = Matter.Events;
+
+
+        // 创建引擎
+        var engine = Engine.create();
+        // engine.world.gravity.y = -1
+        engine.timing.timeScale = 0.3
+
+        // 创建渲染器
+        var render = Render.create({
+            element: document.body,
+            engine: engine,
+            options: {
+                wireframes: false
+            }
+        });
+
+        // 墙壁
+        var offset = 5;
+        World.add(engine.world, [
+            Bodies.rectangle(400, -offset, 800.5 + 2 * offset, 50.5, { isStatic: true }),
+            Bodies.rectangle(400, 600 + offset, 800.5 + 2 * offset, 50.5, { isStatic: true }),
+            Bodies.rectangle(800 + offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true }),
+            Bodies.rectangle(-offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true })
+        ]);
+
+        // 鼠标约束
+        var mouseConstraint = MouseConstraint.create(engine, {
+            element: render.canvas
+        });
+
+        World.add(engine.world, mouseConstraint);
+
+
+        /*===========================
+        DEMO
+        ===========================*/
+        var group = Body.nextGroup(true),
+            particleOptions = {
+                friction: 0.00001,
+                collisionFilter: {
+                    group: group
+                },
+                render: {
+                    visible: false
+                }
+            },
+            cloth = Composites.softBody(200, 150, 20, 12, 2, 2, false, 2, particleOptions);
+
+        for (var i = 0; i < 20; i++) {
+            cloth.bodies[i].isStatic = true;
+        }
+
+        World.add(engine.world, [
+            cloth,
+            Bodies.circle(300, 450, 50, { isStatic: false, density: 100, restitution: 0.9 }),
+            Bodies.circle(100, 450, 100, { isStatic: false, density: 1, restitution: 0.9 }),
+            // Bodies.rectangle(500, 430, 80, 80, { isStatic: true })
+        ]);
+        /*===========================
+        END
+        ===========================*/
+
+        // 运行引擎
+        Engine.run(engine);
+        Render.run(render);
+    </script>
+</body>
+
+</html>
