@@ -17,10 +17,10 @@ const Info = (props) => <h1>hello {props.name}</h1>
 const Wev = (props) => `whatever ${props.name}`
 
 const Wrapped = (Comp) => (
-  class Info extends Component {
+  class Infor extends Component {
     render() {
       return <Comp name="Just Me" />
-    } 
+    }
   }
 )
 
@@ -39,8 +39,26 @@ const Ln = (props) => <p>2<sup>{props.n}</sup></p>
 const B5 = N5(Bu)
 const T5 = N5(Ln)
 
+const ErrorComp = (props) => (
+  <input onChange={e => {
+    if (e.target.value === 'hello') {
+      throw new Error('Are you hello me??????')
+    }
+  }} />
+)
+
 // const WelcomeYou = Welcome('you')
 class App extends Component {
+  state = {
+    error: '',
+    hasError: false,
+  }
+  componentDidCatch(error, info) {
+    this.setState({
+      hasError: true,
+      error: info,
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -51,6 +69,16 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        {
+          this.state.hasError
+          ?
+          <details>
+            <summary>错误啦</summary>
+            <p>{this.state.error}</p>
+          </details>
+          :
+          <ErrorComp />
+        }
         <ListRender name="Obiwan" />
         <ListRender name="Anakin" />
         <Portals pid="portals">
