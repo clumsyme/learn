@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+    button {
+        margin: 10;
+    }
+</style>
+<body>
+    <button data-name="book">Book</button>
+    <button data-name="movie">Movie</button>
+    <button data-name="music">Music</button>
+    <script>
+        let buttons = document.querySelectorAll('button')
+        buttons.forEach(button => {
+            button.addEventListener('click', async () => {
+                let modulePath = `/${button.dataset.name}.js`
+                let module = await import(modulePath)
+                module.introduceSelf()
+            })
+        })
+    </script>
+</body>
+</html>
