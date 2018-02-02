@@ -1,10 +1,10 @@
 class Range {
-    constructor(low, high, step) {
+    constructor(start, end, step) {
         if (step === 0) {
             throw new Error('range() arg 3 must not be zero')
         }
-        this.low = high ? low : 0
-        this.high = high ? high : low
+        this.start = end ? start : 0
+        this.end = end ? end : start
         this.step = step ? step : 1
     }
 
@@ -12,11 +12,11 @@ class Range {
         return {
             next: () => {
                 if (
-                    (this.step > 0 && this.low < this.high) ||
-                    (this.step < 0 && this.low > this.high)
+                    (this.step > 0 && this.start < this.end) ||
+                    (this.step < 0 && this.start > this.end)
                 ) {
-                    let result = { value: this.low, done: false }
-                    this.low += this.step
+                    let result = { value: this.start, done: false }
+                    this.start += this.step
                     return result
                 } else {
                     return { done: true }
@@ -26,8 +26,8 @@ class Range {
     }
 }
 
-function range(low, high, step) {
-    return new Range(low, high, step)
+function range(start, end, step) {
+    return new Range(start, end, step)
 }
 
 ;`
@@ -35,11 +35,11 @@ function range(low, high, step) {
 Array.from(range(5,19,6))
 // [5, 11, 17]
 range(10)
-// Range {low: 0, high: 10, step: 1}
+// Range {start: 0, end: 10, step: 1}
 range(6, 12)
-// Range {low: 6, high: 12, step: 1}
+// Range {start: 6, end: 12, step: 1}
 range(6, 12, 3)
-// Range {low: 6, high: 12, step: 3}
+// Range {start: 6, end: 12, step: 3}
 
 for (let i of range(3)) {
     console.log(i)
