@@ -1,5 +1,8 @@
 class Range {
     constructor(low, high, step) {
+        if (step === 0) {
+            throw new Error('range() arg 3 must not be zero')
+        }
         this.low = high ? low : 0
         this.high = high ? high : low
         this.step = step ? step : 1
@@ -50,4 +53,7 @@ for (let i of range(3)) {
 
 [...range(6, 33, 5)]
 // [6, 11, 16, 21, 26]
+
+[...range(20, 7, -3)]
+// [20, 17, 14, 11, 8]
 `
