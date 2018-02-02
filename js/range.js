@@ -8,7 +8,10 @@ class Range {
     [Symbol.iterator]() {
         return {
             next: () => {
-                if (this.low < this.high) {
+                if (
+                    (this.step > 0 && this.low < this.high) ||
+                    (this.step < 0 && this.low > this.high)
+                ) {
                     let result = { value: this.low, done: false }
                     this.low += this.step
                     return result
@@ -24,7 +27,7 @@ function range(low, high, step) {
     return new Range(low, high, step)
 }
 
-`
+;`
 // usage
 Array.from(range(5,19,6))
 // [5, 11, 17]
